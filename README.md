@@ -29,3 +29,6 @@ Installeer de volgende dependencies:
 Express
 * `npm express install`
 
+Essentieel om te installeren in de devdependencies:
+dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft niet de applicatie niet steeds te herstarten.
+* `npm nodemon install`
