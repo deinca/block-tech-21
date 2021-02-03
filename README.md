@@ -15,7 +15,7 @@ Dit doe je door:
 Je kan NPM en NODE.js sneller installeren door NVM te installeren hiervoor heb je de volgende code nodig.
 * `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash` 
 
-of je kan kijken of je de programmas al in je computer hebt staan door:
+of je kan kijken of je de programmas al in je computer hebt staan door in de terminal te typen:
 * `node --version`
 * `npm --version`
 * `git --version`
@@ -32,3 +32,6 @@ Express
 Essentieel om te installeren in de devdependencies:
 dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft niet de applicatie niet steeds te herstarten.
 * `npm nodemon install`
+
+Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de terminal het volgende uit te voeren:
+* `nodemon index.js`
