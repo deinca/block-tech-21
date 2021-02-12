@@ -1,29 +1,38 @@
-const express = require('express');
-const loDash = require('lodash');
+const express = require('express'); // hiermee maak ik een applicatie aan
+const loDash = require('lodash'); 
 const camelCase = require('camelcase');
 
-//Hieronde maar ik een let variabel zodat 
-let messageInCamelCase = camelCase('testing-this-text-in-camel-case');
-// print de bovenstaande variabel
-console.log(messageInCamelCase);
-// type in de terminal: node index.js
+    //Hieronde maar ik een const variabel zodat 
+    const messageInCamelCase = camelCase('testing-this-text-in-camel-case');
+    // print de bovenstaande variabel
+    console.log(messageInCamelCase);
+    // type in de terminal: node index.js
+    const port = 2021;
 
-
+    
 const app = express();
-// we zetten de module in een variabel
+// In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
 
-app.listen(2021,
-// we maken een locale server aan
-
-    function(){console.log('app is listening to port 2021')}
-    // en we loggen in de console als de port is geopend
-    );
+app.use('/static', express.static('static'))
 
 
-app.get('/', (req, res) => {
-// vervolgens maken we een route aan 
-
-    res.send('Hallo Block Tech 2021!');
+app.get('/', (req, res) => { 
+// vervolgens wordt een route aangemaakt
+    res.send('<h1>Hallo Block Tech 2021!</h1>');
     //als de bezoeker localhost:2021/ bezoekt dan krijgt het bericht te zien.
 
 });
+
+app.get('/login', (req,res) => {
+    res.send('This would be de login page')
+});
+
+app.get('*', (req, res) =>{
+    res.send('<title>My site</title><link rel="stylesheet" href="/static/public/style.css"> <body class="bg-black fnt-white"><b>404 not fount page</b>  <p><img src="/static/images/404-cat.jpg"></p> </body>');
+});
+
+app.listen(port, () => {
+    // we maken een locale server aan
+        console.log('app is listening to port 2021');
+        // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
+    });
