@@ -37,8 +37,11 @@ app.get('/login', (req,res) => {
     res.send('This would be de login page')
 });
 
+// app.get('*', (req, res) =>{
+//     res.send('<title>My site</title><link rel="stylesheet" href="/static/public/style.css"> <body class="bg-black fnt-white"><b>404 not fount page</b>  <p><img src="/static/images/404-cat.jpg"></p> </body>');
+// });
 app.get('*', (req, res) =>{
-    res.send('<title>My site</title><link rel="stylesheet" href="/static/public/style.css"> <body class="bg-black fnt-white"><b>404 not fount page</b>  <p><img src="/static/images/404-cat.jpg"></p> </body>');
+    res.render('404', {title:'404 page', message:'oeps this page is not found'});
 });
 
 
