@@ -39,3 +39,4 @@ Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de t
 * `nodemon index.js`
 
 ## License 
+[MIT license](https://github.com/deinca/block-tech-21/blob/main/LICENSE)
