@@ -29,6 +29,8 @@ Installeer de volgende dependencies:
 Express
 * `npm express install`
 
+* `npm install pug` dit is de template engine die ik gebruik om HTML paginas aan te maken.
+
 Essentieel om te installeren in de devdependencies:
 dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft niet de applicatie niet steeds te herstarten.
 * `npm nodemon install`
