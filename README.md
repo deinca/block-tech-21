@@ -37,3 +37,5 @@ dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft 
 
 Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de terminal het volgende uit te voeren:
 * `nodemon index.js`
+
+## License 
