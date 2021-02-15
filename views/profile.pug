@@ -1,0 +1,21 @@
+doctype html
+html
+    include includes/head.pug
+    
+    body
+        include includes/header.pug
+        section
+            - let user = {name: "deinca", loggedIn: false}
+            h2 Welkom         
+            if user.loggedIn
+                p #{ user.name }
+                p In deze pagina kan je profiel gegevens bewerken.
+            else 
+                p Gamer !
+                p Maak een profiel aan door je naar de login pagina te gaan :D
+                    
+                p
+                    button
+                        a(href="/login") Profiel aanmaken
+
+    include includes/footer.pug

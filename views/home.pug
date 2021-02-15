@@ -1,0 +1,25 @@
+mixin profiles(profileData)
+        section(class="profile-box") 
+            h2= profileData.naam
+            p= profileData.game
+            p= profileData.character
+            button I Challenge You
+
+doctype html
+html
+    include includes/head.pug
+    
+    body
+        include includes/header.pug
+        
+        section 
+            p Dit zijn de actuele gamers die je kan uitdagen.
+
+        section(class="profile-section")  
+            - const gamerOne = [{naam: "James bond", game: "Apex", character: "Octane"}, {naam: "Jamie Fox", game: "Tekken", character: "King"}, {naam: "Cookie Moster", game: "Among Us", character: "Red"}]
+            +profiles(gamerOne[0])
+            +profiles(gamerOne[1])
+            +profiles(gamerOne[2])
+
+            
+        include includes/footer.pug

@@ -21,27 +21,36 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 
-app.get('/', (req, res) => { 
-// vervolgens wordt een route aangemaakt
-    res.send('<h1>Hallo Block Tech 2021!</h1>');
-    //als de bezoeker localhost:2021/ bezoekt dan krijgt het bericht te zien.
+// app.get('/', (req, res) => { 
+// // vervolgens wordt een route aangemaakt
+//     res.send('<h1>Hallo Block Tech 2021!</h1>');
+//     //als de bezoeker localhost:2021/ bezoekt dan krijgt het bericht te zien.
+
+// });
+
+app.get('/', (req, res) => {
+    res.render('welkom',  {title: "Welkom in de iCu website", message: "Hello there!" });
 
 });
 
-app.get('/test', (req, res) => {
-    res.render('template',  {title: 'Hey', message: 'Hello there!' });
+app.get('/home', (req, res) => {
+    res.render('home', {paginaTitel: "Home"});
 
 });
 
 app.get('/login', (req,res) => {
-    res.send('This would be de login page')
+    res.render('login.pug', {paginaTitel: "Login pagina"})
+});
+
+app.get('/profile', (req,res) => {
+    res.render('profile.pug', {paginaTitel: "Profiel pagina"})
 });
 
 // app.get('*', (req, res) =>{
 //     res.send('<title>My site</title><link rel="stylesheet" href="/static/public/style.css"> <body class="bg-black fnt-white"><b>404 not fount page</b>  <p><img src="/static/images/404-cat.jpg"></p> </body>');
 // });
 app.get('*', (req, res) =>{
-    res.render('404', {title:'404 page', message:'oeps this page is not found'});
+    res.render('404', {title:'404 page', paginaTitel: "404 pagina niet gevonden", message:'oeps deze pagina bestaat helaas niet'});
 });
 
 

@@ -1,0 +1,16 @@
+.bg-black {
+    background-color: black;
+}
+.fnt-white {
+    color: white;
+}
+section.profile-section {
+    display: flex;
+}
+
+section.profile-box {
+    background: #eeee;
+    padding: 1em;
+    margin: 1em;
+    width: 15%;
+}

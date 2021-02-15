@@ -1,10 +1,11 @@
+doctype html
 html
   head
     title= title
-    link(rel="stylesheet" href="/static/public/style.css")
+    link(rel="stylesheet" href="/static/public/styles.css")
   body(class="bg-black fnt-white")
-
-    h1= message
-    - var img = "/static/images/404-cat.jpg"
-    p 
-        img(src=img)
+    include includes/header.pug
+    
+    - let img = "/static/images/404-cat.jpg"
+    p=message 
+    img(src=img)
