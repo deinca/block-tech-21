@@ -5,13 +5,23 @@ html
     body
         include includes/header.pug
         section
-            - let user = {name: "deinca", loggedIn: false}
-            h2 Welkom         
+            - let user = {name: "Deinca", loggedIn: true}        
             if user.loggedIn
-                p #{ user.name }
-                p In deze pagina kan je profiel gegevens bewerken.
+                h2 Profiel bewerken
+                p Hallo, #{ user.name }!
+                p In deze pagina kan je je profiel gegevens bewerken.
+
+                section
+                    form(action="#" method="post")
+                        legend Profiel gegevens
+                        label(for="fname") Name
+                        br
+                        input(type="text" id="fname")
+                        br
+                        input(type="submit" value="submit")
+
             else 
-                p Gamer !
+                h2 Profiel aanmaken
                 p Maak een profiel aan door je naar de login pagina te gaan :D
                     
                 p

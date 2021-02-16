@@ -14,11 +14,14 @@ const pug = require('pug');
 const app = express();
 // In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
 
-app.use('/static', express.static('static'));
-// alle files die gepubliceerd moeten worden zitten in de directory static
-
 app.set('views', './views');
 app.set('view engine', 'pug');
+
+
+app.use('/static', express.static('static'));
+// alle files die gepubliceerd moeten worden via de client zitten in de directory static
+
+
 
 
 // app.get('/', (req, res) => { 
@@ -29,12 +32,12 @@ app.set('view engine', 'pug');
 // });
 
 app.get('/', (req, res) => {
-    res.render('welkom',  {title: "Welkom in de iCu website", message: "Hello there!" });
+    res.render('welkom',  {title: "Welkom in de iCu website", message: "Welkom in de iCu website" });
 
 });
 
 app.get('/home', (req, res) => {
-    res.render('home', {paginaTitel: "Home"});
+    res.render('home', {paginaTitel: "Home pagina"});
 
 });
 
@@ -55,7 +58,7 @@ app.get('*', (req, res) =>{
 
 
 app.listen(port, () => {
-    // we maken een locale server aan
-        console.log('app is listening to port 2021');
-        // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
-    });
+  // we maken een locale server aan
+    console.log("app is listening to port 2021");
+  // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
+});

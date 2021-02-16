@@ -16,10 +16,10 @@ html
             p Dit zijn de actuele gamers die je kan uitdagen.
 
         section(class="profile-section")  
-            - const gamerOne = [{naam: "James bond", game: "Apex", character: "Octane"}, {naam: "Jamie Fox", game: "Tekken", character: "King"}, {naam: "Cookie Moster", game: "Among Us", character: "Red"}]
-            +profiles(gamerOne[0])
-            +profiles(gamerOne[1])
-            +profiles(gamerOne[2])
+            - const gamer = [{naam: "James bond", game: "Apex", character: "Octane"}, {naam: "Jamie Fox", game: "Tekken", character: "King"}, {naam: "Cookie Monster", game: "Among Us", character: "Red"}]
+            +profiles(gamer[0])
+            +profiles(gamer[1])
+            +profiles(gamer[2])
 
             
         include includes/footer.pug
