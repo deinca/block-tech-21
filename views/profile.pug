@@ -19,34 +19,27 @@ html
                     p 
                         label(for="image") Profiel foto uploaden 
                             input(type="file" id="image" multiple)
-                    fieldset 
-                        legend Stel je inlognaam in:
-                        p
-                            label(for="name") Name 
-                                input(type="text" id="name")
+                    
+                    h3 Stel je profielnaam in:
+                    p
+                        label(for="name") Vul je naam:  
+                            input(type="text" id="name")
+                    
+                    h3 Stel je favoriete game in:
+                    p 
+                        label(for="games") Kies uit: 
+                            select( id="games" name="game")
+                                option(value="false" selected) Nog geen... 
+                                option() Apex
+                                option() Tekken
+                                option() COD Warzone
+                                option() Mortal Combat
+                                option() Leage of Legends
 
-                    fieldset 
-                        legend Stel je favoriete game in:
-                        p
-                            label(for="Apex") Apex 
-                                input(type="radio" name="game" id="apex" value="apex")
-                                
-                        p
-                            label(for="Tekken") Tekken 
-                                input(type="radio" name="game" id="Tekken" value="Tekken")
-                            
-                        p
-                            label(for="Warzone") Warzone 
-                                input(type="radio" name="game" id="Warzone" value="Warzone")
-                        p
-                            label(for="mortal-combat") Mortal Combat 
-                                input(type="radio" name="game" id="mortal-combat" value="mortal-combat")
-
-                    fieldset 
-                        legend Stel je favoriete character in:
-                        p
-                            label(for="favcharname") Geef je favoriete character aan: 
-                                input(type="text" id="favcharname") 
+                    h3 Stel je favoriete character in:
+                    p
+                        label(for="favcharname") Vul de naam van je favorite character:  
+                            input(type="text" id="favcharname") 
                     p
                         input(type="submit" value="submit")
                         
