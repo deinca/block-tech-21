@@ -15,34 +15,34 @@ html
                     h2 Profiel gegevens
                     form(action="#" method="post")
                     
-                    h3 Stel een profiel foto in:
-                    p 
-                        label(for="image") Profiel foto uploaden 
-                            input(type="file" id="image" multiple)
-                    
-                    h3 Stel je profielnaam in:
-                    p
-                        label(for="name") Vul je naam:  
-                            input(type="text" id="name")
-                    
-                    h3 Stel je favoriete game in:
-                    p 
-                        label(for="games") Kies uit: 
-                            select( id="games" name="game")
-                                option(value="false" selected) Nog geen... 
-                                option() Apex
-                                option() Tekken
-                                option() COD Warzone
-                                option() Mortal Combat
-                                option() Leage of Legends
-
-                    h3 Stel je favoriete character in:
-                    p
-                        label(for="favcharname") Vul de naam van je favorite character:  
-                            input(type="text" id="favcharname") 
-                    p
-                        input(type="submit" value="submit")
+                        h3 Stel een profiel foto in:
+                        p 
+                            label(for="image") Profiel foto uploaden:  
+                                input(type="file" id="image" multiple)
                         
+                        h3 Stel je profielnaam in:
+                        p
+                            label(for="name") Vul je naam:  
+                                input(type="text" id="name" name="username")
+                        
+                        h3 Stel je favoriete game in:
+                        p 
+                            label(for="games") Kies uit: 
+                                select( id="games" name="game")
+                                    option(value="false" selected) Nog geen... 
+                                    option() Apex
+                                    option() Tekken
+                                    option() COD Warzone
+                                    option() Mortal Combat
+                                    option() Leage of Legends
+
+                        h3 Stel je favoriete character in:
+                        p
+                            label(for="favcharname") Vul de naam van je favorite character:  
+                                input(type="text" id="favcharname") 
+                        section 
+                            p
+                                button(type="submit") Opslaan
             else 
                 h2 Profiel aanmaken
                 p Maak een profiel aan door je naar de login pagina te gaan :D
