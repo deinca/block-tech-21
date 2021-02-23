@@ -12,14 +12,44 @@ html
                 p In deze pagina kan je je profiel gegevens bewerken.
 
                 section
+                    h2 Profiel gegevens
                     form(action="#" method="post")
-                        legend Profiel gegevens
-                        label(for="fname") Name
-                        br
-                        input(type="text" id="fname")
-                        br
-                        input(type="submit" value="submit")
+                    
+                    h3 Stel een profiel foto in:
+                    p 
+                        label(for="image") Profiel foto uploaden 
+                            input(type="file" id="image" multiple)
+                    fieldset 
+                        legend Stel je inlognaam in:
+                        p
+                            label(for="name") Name 
+                                input(type="text" id="name")
 
+                    fieldset 
+                        legend Stel je favoriete game in:
+                        p
+                            label(for="Apex") Apex 
+                                input(type="radio" name="game" id="apex" value="apex")
+                                
+                        p
+                            label(for="Tekken") Tekken 
+                                input(type="radio" name="game" id="Tekken" value="Tekken")
+                            
+                        p
+                            label(for="Warzone") Warzone 
+                                input(type="radio" name="game" id="Warzone" value="Warzone")
+                        p
+                            label(for="mortal-combat") Mortal Combat 
+                                input(type="radio" name="game" id="mortal-combat" value="mortal-combat")
+
+                    fieldset 
+                        legend Stel je favoriete character in:
+                        p
+                            label(for="favcharname") Geef je favoriete character aan: 
+                                input(type="text" id="favcharname") 
+                    p
+                        input(type="submit" value="submit")
+                        
             else 
                 h2 Profiel aanmaken
                 p Maak een profiel aan door je naar de login pagina te gaan :D
