@@ -27,9 +27,15 @@ Clonde mijn repo:
 
 Installeer de volgende dependencies:
 Express
-* `npm express install`
+* `npm express install` dit module van NODE.js is om de HTTP server te kunnen runnnen.
 
 * `npm install pug` dit is de template engine die ik gebruik om HTML paginas aan te maken.
+
+* `npm install slug` dit npm zet je URL op een veilig manier in string om.
+
+* `npm install body-parser` dit npm heb je nodig om data te kunnen opvragen via express.
+
+* `npm install multer` dit npm maakt het mogelijk dat je files(en meer) kan uploaden via een client formulieren.
 
 Essentieel om te installeren in de devdependencies:
 dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft niet de applicatie niet steeds te herstarten.
