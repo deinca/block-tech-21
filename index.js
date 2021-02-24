@@ -18,9 +18,17 @@ const app = express();
 
 let jsonParser = bodyParser.json()
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
-let upload = multer({ dest: './static/uploads/' })
- 
 
+//Storage files hieronder stel ik de bestanden namen erbij
+let storage = multer.diskStorage({
+    destination: function (req, file, cb){
+        cb(null, './static/uploads/')
+    },
+    filename: function (req, file, cb)   {
+        cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+    }
+})
+let upload = multer({storage: storage})
 
 app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
@@ -51,7 +59,7 @@ app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina"})
 });
 
-app.post('/profile', upload.single('filename'), function (req, res) {
+app.post('/profile', upload.single('filename'), (req, res) => {
     // req.file is the `avatar` file
     //res.send(req.file)
     // req.body will hold the text fields, if there were any
