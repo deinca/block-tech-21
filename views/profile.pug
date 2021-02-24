@@ -13,12 +13,12 @@ html
 
                 section
                     h2 Profiel gegevens
-                    form(id="profile-form" action="/data" method="post")
+                    form(id="profile-form" action="/profile" method="post")
                     
                         h3 Stel een profiel foto in:
                         p 
                             label(for="image") Profiel foto uploaden:  
-                                input(type="file" id="image" multiple)
+                                input(id="image" type="file" name="filename" multiple)
                         
                         h3 Stel je profielnaam in:
                         p
@@ -28,7 +28,7 @@ html
                         h3 Stel je favoriete game in:
                         p 
                             label(for="games") Kies uit: 
-                                select( id="games" name="game")
+                                select(id="games" name="game")
                                     option(value="false" selected) Nog geen... 
                                     option() Apex
                                     option() Tekken
@@ -38,8 +38,8 @@ html
 
                         h3 Stel je favoriete character in:
                         p
-                            label(for="favcharname") Vul de naam van je favorite character:  
-                                input(type="text" id="favcharname") 
+                            label(for="favmain") Vul de naam van je favorite character:  
+                                input(id="favmain" type="text"  name="character") 
                         section 
                             p
                                 button(type="submit") Opslaan

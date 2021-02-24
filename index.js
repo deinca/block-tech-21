@@ -1,35 +1,32 @@
-const express = require('express'); // hiermee maak ik een applicatie aan
+const express = require('express'); // hiermee maak ik een applicatie mee bouwen
 const loDash = require('lodash'); 
 const camelCase = require('camelcase');
 const pug = require('pug');
+const slug = require('slug');
+const bodyParser = require('body-parser');
+const port = 2021; // type in de terminal: node index.js
 
     //Hieronde maar ik een const variabel zodat 
     const messageInCamelCase = camelCase('testing-this-text-in-camel-case');
     // print de bovenstaande variabel
     console.log(messageInCamelCase);
-    // type in de terminal: node index.js
-    const port = 2021;
 
-    
 const app = express();
 // In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
 
-app.set('views', './views');
-app.set('view engine', 'pug');
-
+let jsonParser = bodyParser.json()
+let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
 
 
 
+app.set('views', './views');
+app.set('view engine', 'pug');
 
-// app.get('/', (req, res) => { 
-// // vervolgens wordt een route aangemaakt
-//     res.send('<h1>Hallo Block Tech 2021!</h1>');
-//     //als de bezoeker localhost:2021/ bezoekt dan krijgt het bericht te zien.
 
-// });
+
 
 app.get('/', (req, res) => {
     res.render('welkom',  {title: "Welkom in de iCu website", message: "Welkom in de iCu website" });
@@ -49,9 +46,9 @@ app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina"})
 });
 
-app.post('/data', (req,res)=> {
-    console.log(req.body)
-})
+app.post('/profile', urlencodedParser, function (req, res) {
+    res.send(req.body);
+});
 
 
 // app.get('*', (req, res) =>{
