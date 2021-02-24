@@ -4,6 +4,8 @@ const camelCase = require('camelcase');
 const pug = require('pug');
 const slug = require('slug');
 const bodyParser = require('body-parser');
+const multer  = require('multer')
+
 const port = 2021; // type in de terminal: node index.js
 
     //Hieronde maar ik een const variabel zodat 
@@ -16,6 +18,9 @@ const app = express();
 
 let jsonParser = bodyParser.json()
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
+let upload = multer({ dest: './static/uploads/' })
+ 
+
 
 app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
@@ -46,14 +51,39 @@ app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina"})
 });
 
-app.post('/profile', urlencodedParser, function (req, res) {
-    res.send(req.body);
+app.post('/profile', upload.single('filename'), function (req, res) {
+    // req.file is the `avatar` file
+    //res.send(req.file)
+    // req.body will hold the text fields, if there were any
+    // res.send(`<p><img src="/static/uploads/${req.file.path}"></p>`)
+
+    let data = [];
+    data.push({       
+        photopath:req.file.path,
+        username: req.body.username,
+        game: req.body.game,
+        character: req.body.character,
+        photofile: req.file
+    })
+    console.log(data);
+    res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
+    
 });
 
+// app.post('/profile', urlencodedParser, function (req, res) {
+//     let data = [];
+//     data.push({       
+//         filename: req.body.filename,
+//         username: req.body.username,
+//         game: req.body.game,
+//         character: req.body.character,
+//         photo: req.file
 
-// app.get('*', (req, res) =>{
-//     res.send('<title>My site</title><link rel="stylesheet" href="/static/public/style.css"> <body class="bg-black fnt-white"><b>404 not fount page</b>  <p><img src="/static/images/404-cat.jpg"></p> </body>');
+//     })
+//     console.log(data);
+//     res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/static/uploads/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`);
 // });
+
 app.get('*', (req, res) =>{
     res.render('404', {title:'404 page', paginaTitel: "404 pagina niet gevonden", message:'oeps deze pagina bestaat helaas niet'});
 });

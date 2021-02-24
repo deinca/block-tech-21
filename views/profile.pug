@@ -5,7 +5,7 @@ html
     body
         include includes/header.pug
         section
-            - let user = {name: "Deinca", loggedIn: true}        
+            - let user = {name: "Deinca", loggedIn: true}
             if user.loggedIn
                 h2 Profiel bewerken
                 p Hallo, #{ user.name }!
@@ -13,12 +13,11 @@ html
 
                 section
                     h2 Profiel gegevens
-                    form(id="profile-form" action="/profile" method="post")
-                    
+                    form(id="profile-form" action="/profile" method="post" enctype="multipart/form-data")
                         h3 Stel een profiel foto in:
                         p 
                             label(for="image") Profiel foto uploaden:  
-                                input(id="image" type="file" name="filename" multiple)
+                                input(id="image" type="file" name="filename"  multiple)
                         
                         h3 Stel je profielnaam in:
                         p
