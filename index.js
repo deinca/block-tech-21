@@ -60,11 +60,6 @@ app.get('/profile', (req,res) => {
 });
 
 app.post('/profile', upload.single('filename'), (req, res) => {
-    // req.file is the `avatar` file
-    //res.send(req.file)
-    // req.body will hold the text fields, if there were any
-    // res.send(`<p><img src="/static/uploads/${req.file.path}"></p>`)
-
     let data = [];
     data.push({       
         photopath:req.file.path,
@@ -74,8 +69,14 @@ app.post('/profile', upload.single('filename'), (req, res) => {
         photofile: req.file
     })
     console.log(data);
-    res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
-    
+    // res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
+    res.render('profile.pug', {
+        infoTitel:`Hey ${req.body.username} dit zijn je gegevens`,
+        userAva: req.file.path,
+        nameGamer: req.body.username,
+        favGame: req.body.game,
+        favChar: req.body.character
+    })   
 });
 
 // app.post('/profile', urlencodedParser, function (req, res) {

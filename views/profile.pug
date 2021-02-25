@@ -4,15 +4,24 @@ html
     
     body
         include includes/header.pug
+
         section
-            - let user = {name: "Deinca", loggedIn: true}
-            if user.loggedIn
+            - let defaultUser = {name: "iCu Naam", loggedIn: true}
+            if defaultUser.loggedIn
                 h2 Profiel bewerken
-                p Hallo, #{ user.name }!
-                p In deze pagina kan je je profiel gegevens bewerken.
+                p Hallo, #{defaultUser.name }!
+                p In deze pagina kan je je profiel gegevens inzien en bewerken.
+
+                section 
+                    h2=infoTitel
+                    p
+                        img(src=userAva)
+                    p=nameGamer
+                    p=favGame
+                    p=favChar
 
                 section
-                    h2 Profiel gegevens
+                    h2 Profiel gegevens bewerken
                     form(id="profile-form" action="/profile" method="post" enctype="multipart/form-data")
                         h3 Stel een profiel foto in:
                         p 
