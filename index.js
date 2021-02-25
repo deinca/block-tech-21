@@ -71,11 +71,12 @@ app.post('/profile', upload.single('filename'), (req, res) => {
     console.log(data);
     // res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
     res.render('profile.pug', {
-        infoTitel:`Hey ${req.body.username} dit zijn je gegevens`,
+        infoTitel:`Hey ${req.body.username}!, dit zijn je gegevens`,
         userAva: req.file.path,
         nameGamer: req.body.username,
         favGame: req.body.game,
-        favChar: req.body.character
+        favChar: req.body.character,
+        uploaded: true
     })   
 });
 

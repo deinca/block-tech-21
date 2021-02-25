@@ -6,57 +6,52 @@ html
         include includes/header.pug
 
         section
-            - let defaultUser = {name: "iCu Naam", loggedIn: true}
-            if defaultUser.loggedIn
-                h2 Profiel bewerken
-                p Hallo, #{defaultUser.name }!
-                p In deze pagina kan je je profiel gegevens inzien en bewerken.
+            if uploaded   
+                h2=infoTitel
+                p Jouw profiel afbeelding is: 
+                    img(src=userAva) 
+                p Jouw iCu naam is:  
+                    span=nameGamer
+                p Jouw Favoriete game is: 
+                    span=favGame
+                p Jouw Favoriete Character is: 
+                    span=favChar
+            else
+            
+                h2 Hallo iCu Gast !
+                p Om te kunnen matchen met andere gamers, is het nodig dat je hieronder je gegevens aan ons door geeft. 
 
-                section 
-                    h2=infoTitel
-                    p
-                        img(src=userAva)
-                    p=nameGamer
-                    p=favGame
-                    p=favChar
-
-                section
-                    h2 Profiel gegevens bewerken
-                    form(id="profile-form" action="/profile" method="post" enctype="multipart/form-data")
-                        h3 Stel een profiel foto in:
-                        p 
-                            label(for="image") Profiel foto uploaden:  
-                                input(id="image" type="file" name="filename"  accept="image/*")
-                        
-                        h3 Stel je profielnaam in:
-                        p
-                            label(for="name") Vul je naam:  
-                                input(type="text" id="name" name="username")
-                        
-                        h3 Stel je favoriete game in:
-                        p 
-                            label(for="games") Kies uit: 
-                                select(id="games" name="game")
-                                    option(value="false" selected) Nog geen... 
-                                    option() Apex
-                                    option() Tekken
-                                    option() COD Warzone
-                                    option() Mortal Combat
-                                    option() Leage of Legends
-
-                        h3 Stel je favoriete character in:
-                        p
-                            label(for="favmain") Vul de naam van je favorite character:  
-                                input(id="favmain" type="text"  name="character") 
-                        section 
-                            p
-                                button(type="submit") Opslaan
-            else 
-                h2 Profiel aanmaken
-                p Maak een profiel aan door je naar de login pagina te gaan :D
+            section
+                h2 Profiel gegevens bewerken
+                form(id="profile-form" action="/profile" method="post" enctype="multipart/form-data")
+                    h3 Stel een profiel foto in:
+                    p 
+                        label(for="image") Profiel foto uploaden:  
+                            input(id="image" type="file" name="filename"  accept="image/*")
                     
-                p
-                    button
-                        a(href="/login") Profiel aanmaken
+                    h3 Stel je profielnaam in:
+                    p
+                        label(for="name") Vul je naam:  
+                            input(type="text" id="name" name="username")
+                    
+                    h3 Stel je favoriete game in:
+                    p 
+                        label(for="games") Kies uit: 
+                            select(id="games" name="game")
+                                option(value="false" selected) Nog geen... 
+                                option() Apex
+                                option() Tekken
+                                option() COD Warzone
+                                option() Mortal Combat
+                                option() Leage of Legends
+
+                    h3 Stel je favoriete character in:
+                    p
+                        label(for="favmain") Vul de naam van je favorite character:  
+                            input(id="favmain" type="text"  name="character") 
+                    section 
+                        p
+                            button(type="submit") Opslaan
+
 
     include includes/footer.pug
