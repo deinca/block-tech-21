@@ -16,6 +16,9 @@ html
                     span=favGame
                 p Jouw Favoriete Character is: 
                     span=favChar
+                p
+                    form(id="profile-form" action="/profile" method="delete" enctype="multipart/form-data")
+                        button(type="submit") Verwijder gegevens
             else
             
                 h2 Hallo iCu Gast !

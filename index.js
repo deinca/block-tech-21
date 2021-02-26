@@ -80,6 +80,16 @@ app.post('/profile', upload.single('filename'), (req, res) => {
     })   
 });
 
+
+app.delete('/profile', (req, res) => {
+    res.render('profile.pug', {
+        userAva: req.file.path,
+        nameGamer: req.body.username,
+        favGame: req.body.game,
+        favChar: req.body.character
+    })
+});
+
 // app.post('/profile', urlencodedParser, function (req, res) {
 //     let data = [];
 //     data.push({       

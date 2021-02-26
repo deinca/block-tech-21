@@ -1,4 +1,8 @@
 # macOS Files
 .DS_store
+
 # Dependencies
 node_modules/
+
+# Very Private files
+.env
