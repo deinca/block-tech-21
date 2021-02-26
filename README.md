@@ -37,6 +37,10 @@ Express
 
 * `npm install multer` dit npm maakt het mogelijk dat je files(en meer) kan uploaden via een client formulieren.
 
+* `npm install dotenv` dit heb je nodig om onafhankelijke variabelen te kunnen gebruiken uit de `.env` bestand. In deze bestand zet ik mijn mongoDB wachtwoord en username bijvoorbeeld.
+
+* `npm i mongodb@3.6.3 ` hiermee installeren we het mongoDB omgeving programma zodat het later mogelijk is om data ui de database te roepen.
+
 Essentieel om te installeren in de devdependencies:
 dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft niet de applicatie niet steeds te herstarten.
 * `npm nodemon install`
