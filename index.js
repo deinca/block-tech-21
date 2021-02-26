@@ -5,17 +5,45 @@ const pug = require('pug');
 const slug = require('slug');
 const bodyParser = require('body-parser');
 const multer  = require('multer')
+// const mongo = require('mongodb'); // geprobeerd maar duurde mij te lang
+const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
 
-const port = 2021; // type in de terminal: node index.js
+const app = express();
+// In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
+
+
+// Database URI
+const url = 'mongodb+srv://delinca:'+ process.env.DB_PASSWORD +'@icudata.bp6bm.mongodb.net/'+ process.env.DB_NAME +'?retryWrites=true&w=majority';
+
+// Conecting Database
+mongoose.connect(url, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true })
+    // We gebruiken de promise method om erros of berichten te loggen 
+    .then((result) => console.log('Mongo-Database is connected (^.^)!'))
+    .catch((err) => console.log(err))
+
+// In deze variabel zet ik een model/ schema/ blauw druk hoe de objecten eruit moeten zien, dit wordt ook gezien als een constructor
+const Cat = mongoose.model('users', { name: String });
+
+// Binnen de deze get req zullen wij de data doorsturen naar onze database
+app.get('/add-object', (req, res)=>{
+    const kitty = new Cat({ name: 'deinca' });
+    kitty.save().then(() => {
+        res.send(kitty)
+        console.log('meow')});
+});
+
+//Port listening setting
+const port = process.env.DB_PORT || 2021;
 
     //Hieronde maar ik een const variabel zodat 
     const messageInCamelCase = camelCase('testing-this-text-in-camel-case');
     // print de bovenstaande variabel
     console.log(messageInCamelCase);
 
-const app = express();
-// In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
-
+// Body-parser variabelen die het mogelijk makne om de data op te vragen van een formulier
 let jsonParser = bodyParser.json()
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -111,6 +139,6 @@ app.get('*', (req, res) =>{
 
 app.listen(port, () => {
   // we maken een locale server aan
-    console.log("app is listening to port 2021");
+    console.log(`The app is listening to port ${port}`);
   // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
 });
