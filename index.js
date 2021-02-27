@@ -62,41 +62,44 @@ app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
 
 
-
+// Hieronder stel ik mijn files in
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-
-
-
+//Hieronder maakt ik een request functie aan waar de welkompagina wordt gerenderd
 app.get('/', (req, res) => {
     res.render('welkom',  {title: "Welkom in de iCu website", message: "Welkom in de iCu website" });
 
 });
 
+//Hieronder maakt ik een request functie aan waar de homepagina wordt gerenderd
 app.get('/home', (req, res) => {
     res.render('home', {paginaTitel: "Home pagina"});
 
 });
 
+//Hieronder maakt ik een request functie aan waar de loginpagina wordt gerenderd
 app.get('/login', (req,res) => {
     res.render('login.pug', {paginaTitel: "Login pagina"})
 });
 
+//Hieronder maakt ik een request functie aan waar de profile wordt gerenderd
 app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina"})
 });
 
+//Hieronder zet ik de data in een array die wordt opgehaald door de body-parser
+let data = [];
+data.push({       
+    photopath:req.file.path,
+    username: req.body.username,
+    game: req.body.game,
+    character: req.body.character,
+    photofile: req.file
+})
+
+//Hieronder maakt ik een functie aan waar ik afbeeldingen en informatie wordt gere-renderd in de profile pagina,die af komt van de fomulier.
 app.post('/profile', upload.single('filename'), (req, res) => {
-    let data = [];
-    data.push({       
-        photopath:req.file.path,
-        username: req.body.username,
-        game: req.body.game,
-        character: req.body.character,
-        photofile: req.file
-    })
-    console.log(data);
     // res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
     res.render('profile.pug', {
         infoTitel:`Hey ${req.body.username}!, dit zijn je gegevens`,
@@ -106,9 +109,11 @@ app.post('/profile', upload.single('filename'), (req, res) => {
         favChar: req.body.character,
         uploaded: true
     })   
+    //hieronder test ik of de data goed is doorgegeven
+    console.log('De hier onder heb je je data',data);
 });
 
-
+// Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
 app.delete('/profile', (req, res) => {
     res.render('profile.pug', {
         userAva: req.file.path,
@@ -132,11 +137,13 @@ app.delete('/profile', (req, res) => {
 //     res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/static/uploads/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`);
 // });
 
+
+// Hier geef ik aan dat als er een willekeurige path wordt aangevraagd door de client-side en deze bestaat niet dan krijg je een error 404 pagina.
 app.get('*', (req, res) =>{
     res.render('404', {title:'404 page', paginaTitel: "404 pagina niet gevonden", message:'oeps deze pagina bestaat helaas niet'});
 });
 
-
+// Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren. 
 app.listen(port, () => {
   // we maken een locale server aan
     console.log(`The app is listening to port ${port}`);
