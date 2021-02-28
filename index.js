@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const multer  = require('multer')
 // const mongo = require('mongodb'); // geprobeerd maar duurde mij te lang
 const mongoose = require('mongoose');
+const { result } = require('lodash');
 // Door de dotenv NPM package aante roepen kan ik codes variabelen uit de .env bestand gebruiken. 
 const dotenv = require('dotenv').config();
 
@@ -16,6 +17,7 @@ const app = express();
 app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
 
+// hieronder zeg ik dat elke keer als er iets wordt gedaan 
 
 // Hieronder stel ik mijn files in
 app.set('views', './views');
@@ -77,12 +79,6 @@ app.get('/', (req, res) => {
 
 });
 
-//Hieronder maakt ik een request functie aan waar de homepagina wordt gerenderd
-app.get('/home', (req, res) => {
-    res.render('home', {paginaTitel: "Home pagina"});
-
-});
-
 //Hieronder maakt ik een request functie aan waar de loginpagina wordt gerenderd
 app.get('/login', (req,res) => {
     res.render('login.pug', {paginaTitel: "Login pagina"})
@@ -120,7 +116,7 @@ app.get('/profile', (req,res) => {
 // });
 
 // // ********
-const userConstructor = mongoose.model('users', {
+const UserConstructor = mongoose.model('users', {
     gamerAvatar: String,
     gamerNickName: String,
     gamerFavGame:String,
@@ -131,7 +127,7 @@ const userConstructor = mongoose.model('users', {
 
 app.post('/profile', upload.single('filename'), (req, res) => {
     // maar een object aan met de ingevolde fomulier
-    const newGamer = new userConstructor({ 
+    const newGamer = new UserConstructor({ 
         gamerAvatar: req.file.path,
         gamerNickName: req.body.username,
         gamerFavGame: req.body.game,
@@ -142,7 +138,6 @@ app.post('/profile', upload.single('filename'), (req, res) => {
     newGamer.save().then(() => {
 
         // res.send('De volgende object is in de database opgeslagen')
-
         res.render('profile.pug', {
             infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
             userAva: newGamer.gamerAvatar,
@@ -155,15 +150,48 @@ app.post('/profile', upload.single('filename'), (req, res) => {
         console.log('A new user object is uploaded (^.^)!')
     });
 
-
-
 });
 
+app.get('/profile/:id', (req,res) => {
+
+    
+    const id = req.params.id
+    UserConstructor.findById(id)
+    // UserConstructor.findById(req.params.id)
+    .then (newGamer => {
+        res.render('profile.pug', {
+        infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
+        userAva:  '../' + newGamer.gamerAvatar,
+        nameGamer: newGamer.gamerNickName,
+        favGame: newGamer.gamerFavGame,
+        favChar: newGamer.gamerFavChar,
+        uploaded: newGamer.uploaded
+        }) 
+        console.log(newGamer)
+    }) 
+    // .catch((err) => {
+    // console.log(err);
+    // })
+    console.log(id)
+});
+
+//Hieronder maakt ik een request functie aan waar de homepagina wordt gerenderd
+app.get('/home', (req, res) => {
+    
+    UserConstructor.find()
+    .then((result) => {
+        // res.send(result);
+        res.render('home', {paginaTitel: "Home pagina", usersData: result})
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+});
 
 
 // Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
 app.delete('/profile', (req, res) => {
-    res.render('profile.pug', {
+    res.render('profile.pug',  {
         userAva: req.file.path,
         nameGamer: req.body.username,
         favGame: req.body.game,

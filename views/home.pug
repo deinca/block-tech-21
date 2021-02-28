@@ -1,8 +1,12 @@
+- const gamers = usersData
 mixin profiles(profileData)
         section(class="profile-box") 
-            h2= profileData.naam
-            p= profileData.game
-            p= profileData.character
+            h2= profileData.gamerNickName
+            p
+                img(src=profileData.gamerAvatar)
+            p= profileData.gamerNickName
+            p= profileData.gamerFavGame
+            p= profileData.gamerFavChar
             button I Challenge You
 
 doctype html
@@ -16,10 +20,10 @@ html
             p Dit zijn de actuele gamers die je kan uitdagen.
 
         section(class="profile-section")  
-            - const gamer = [{naam: "James bond", game: "Apex", character: "Octane"}, {naam: "Jamie Fox", game: "Tekken", character: "King"}, {naam: "Cookie Monster", game: "Among Us", character: "Red"}]
-            +profiles(gamer[0])
-            +profiles(gamer[1])
-            +profiles(gamer[2])
+            each gamer in gamers 
+                +profiles(gamer)
+
+
 
             
         include includes/footer.pug
