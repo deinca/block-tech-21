@@ -7,11 +7,19 @@ const bodyParser = require('body-parser');
 const multer  = require('multer')
 // const mongo = require('mongodb'); // geprobeerd maar duurde mij te lang
 const mongoose = require('mongoose');
+// Door de dotenv NPM package aante roepen kan ik codes variabelen uit de .env bestand gebruiken. 
 const dotenv = require('dotenv').config();
 
-const app = express();
 // In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
+const app = express();
 
+app.use('/static', express.static('static'));
+// alle files die gepubliceerd moeten worden via de client zitten in de directory static
+
+
+// Hieronder stel ik mijn files in
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 // Database URI
 const url = 'mongodb+srv://delinca:'+ process.env.DB_PASSWORD +'@icudata.bp6bm.mongodb.net/'+ process.env.DB_NAME +'?retryWrites=true&w=majority';
@@ -25,15 +33,20 @@ mongoose.connect(url, {
     .catch((err) => console.log(err))
 
 // In deze variabel zet ik een model/ schema/ blauw druk hoe de objecten eruit moeten zien, dit wordt ook gezien als een constructor
-const Cat = mongoose.model('users', { name: String });
+// const Cat = mongoose.model('users', { name: String }); // **Example
+
+
 
 // Binnen de deze get req zullen wij de data doorsturen naar onze database
-app.get('/add-object', (req, res)=>{
-    const kitty = new Cat({ name: 'deinca' });
-    kitty.save().then(() => {
-        res.send(kitty)
-        console.log('meow')});
-});
+// app.get('/add-object', (req, res)=>{
+//     const kitty = new Cat({ name: 'deinca' });
+//     kitty.save().then(() => {
+//         res.send(kitty)
+//         console.log('meow')});
+// }); **Example
+
+
+
 
 //Port listening setting
 const port = process.env.DB_PORT || 2021;
@@ -58,14 +71,6 @@ let storage = multer.diskStorage({
 })
 let upload = multer({storage: storage})
 
-app.use('/static', express.static('static'));
-// alle files die gepubliceerd moeten worden via de client zitten in de directory static
-
-
-// Hieronder stel ik mijn files in
-app.set('views', './views');
-app.set('view engine', 'pug');
-
 //Hieronder maakt ik een request functie aan waar de welkompagina wordt gerenderd
 app.get('/', (req, res) => {
     res.render('welkom',  {title: "Welkom in de iCu website", message: "Welkom in de iCu website" });
@@ -88,30 +93,73 @@ app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina"})
 });
 
-//Hieronder zet ik de data in een array die wordt opgehaald door de body-parser
-let data = [];
-data.push({       
-    photopath:req.file.path,
-    username: req.body.username,
-    game: req.body.game,
-    character: req.body.character,
-    photofile: req.file
-})
+// // ***** zet weer actief 
+// //Hieronder maakt ik een functie aan waar ik afbeeldingen en informatie wordt gere-renderd in de profile pagina,die af komt van de fomulier.
+// app.post('/profile', upload.single('filename'), (req, res) => {
+//     // res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
+//     res.render('profile.pug', {
+//         infoTitel:`Hey ${req.body.username}!, dit zijn je gegevens`,
+//         userAva: req.file.path,
+//         nameGamer: req.body.username,
+//         favGame: req.body.game,
+//         favChar: req.body.character,
+//         uploaded: true
+//     })   
 
-//Hieronder maakt ik een functie aan waar ik afbeeldingen en informatie wordt gere-renderd in de profile pagina,die af komt van de fomulier.
-app.post('/profile', upload.single('filename'), (req, res) => {
-    // res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
-    res.render('profile.pug', {
-        infoTitel:`Hey ${req.body.username}!, dit zijn je gegevens`,
-        userAva: req.file.path,
-        nameGamer: req.body.username,
-        favGame: req.body.game,
-        favChar: req.body.character,
-        uploaded: true
-    })   
-    //hieronder test ik of de data goed is doorgegeven
-    console.log('De hier onder heb je je data',data);
+//     //Hieronder zet ik de data in een array die wordt opgehaald door de body-parser
+//     let data = [];
+//     data.push({       
+//         photopath:req.file.path,
+//         username: req.body.username,
+//         game: req.body.game,
+//         character: req.body.character,
+//         photofile: req.file
+//     })
+//     //hieronder test ik of de data goed is doorgegeven
+//     console.log('De data hieronder is geupload',data);
+// });
+
+// // ********
+const userConstructor = mongoose.model('users', {
+    gamerAvatar: String,
+    gamerNickName: String,
+    gamerFavGame:String,
+    gamerFavChar:String,
+    uploaded: Boolean,
+
 });
+
+app.post('/profile', upload.single('filename'), (req, res) => {
+    // maar een object aan met de ingevolde fomulier
+    const newGamer = new userConstructor({ 
+        gamerAvatar: req.file.path,
+        gamerNickName: req.body.username,
+        gamerFavGame: req.body.game,
+        gamerFavChar: req.body.character,
+        uploaded: true
+    });
+
+    newGamer.save().then(() => {
+
+        // res.send('De volgende object is in de database opgeslagen')
+
+        res.render('profile.pug', {
+            infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
+            userAva: newGamer.gamerAvatar,
+            nameGamer: newGamer.gamerNickName,
+            favGame: newGamer.gamerFavGame,
+            favChar: newGamer.gamerFavChar,
+            uploaded: newGamer.uploaded
+        })
+
+        console.log('A new user object is uploaded (^.^)!')
+    });
+
+
+
+});
+
+
 
 // Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
 app.delete('/profile', (req, res) => {
