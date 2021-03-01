@@ -17,16 +17,17 @@ html
                 p Jouw Favoriete Character is: 
                     span=favChar
                 p
-                    form(id="profile-form" action="/profile" method="delete" enctype="multipart/form-data")
-                        button(type="submit") Verwijder gegevens
+                    - let idu = "/profile/" + idGamer
+                    a(data-id=idGamer)
+                        button Verwijder gegevens
             else
             
-                h2 Hallo iCu Gast !
+                h2 Hallo iCu Gast!
                 p Om te kunnen matchen met andere gamers, is het nodig dat je hieronder je gegevens aan ons door geeft. 
 
             section
                 h2 Profiel gegevens bewerken
-                form(id="profile-form" action="/profile" method="post" enctype="multipart/form-data")
+                form(id="profile-form" action=formAction method=reqMethod enctype="multipart/form-data")
                     h3 Stel een profiel foto in:
                     p 
                         label(for="image") Profiel foto uploaden:  

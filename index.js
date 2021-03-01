@@ -86,7 +86,7 @@ app.get('/login', (req,res) => {
 
 //Hieronder maakt ik een request functie aan waar de profile wordt gerenderd
 app.get('/profile', (req,res) => {
-    res.render('profile.pug', {paginaTitel: "Profiel pagina"})
+    res.render('profile.pug', {paginaTitel: "Profiel pagina", formAction:"/profile", reqMethod:"post", reqDelete: 'delete'})
 });
 
 // // ***** zet weer actief 
@@ -134,46 +134,106 @@ app.post('/profile', upload.single('filename'), (req, res) => {
         gamerFavChar: req.body.character,
         uploaded: true
     });
-
+    console.log(newGamer)
     newGamer.save().then(() => {
 
         // res.send('De volgende object is in de database opgeslagen')
-        res.render('profile.pug', {
-            infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
-            userAva: newGamer.gamerAvatar,
-            nameGamer: newGamer.gamerNickName,
-            favGame: newGamer.gamerFavGame,
-            favChar: newGamer.gamerFavChar,
-            uploaded: newGamer.uploaded
-        })
+        // res.render('profile.pug', {
+        //     infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
+        //     userAva: newGamer.gamerAvatar,
+        //     nameGamer: newGamer.gamerNickName,
+        //     favGame: newGamer.gamerFavGame,
+        //     favChar: newGamer.gamerFavChar,
+        //     link: newGamer._id,
+        //     uploaded: newGamer.uploaded
+        // })
+        
+        res.redirect(`/profile/${newGamer._id}`)
 
         console.log('A new user object is uploaded (^.^)!')
-    });
+    })
 
 });
 
 app.get('/profile/:id', (req,res) => {
 
     
-    const id = req.params.id
+    let id = req.params.id
     UserConstructor.findById(id)
     // UserConstructor.findById(req.params.id)
-    .then (newGamer => {
+    .then(newGamer => {
         res.render('profile.pug', {
         infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
         userAva:  '../' + newGamer.gamerAvatar,
         nameGamer: newGamer.gamerNickName,
         favGame: newGamer.gamerFavGame,
         favChar: newGamer.gamerFavChar,
-        uploaded: newGamer.uploaded
+        uploaded: newGamer.uploaded,
+        idGamer: newGamer._id,
+        reqDelete: 'delete',
+        formAction: '/profile/' + newGamer._id,
+        reqMethod: 'post'
         }) 
-        console.log(newGamer)
-    }) 
+        // console.log(newGamer.gamerNickName)
+    })
     // .catch((err) => {
     // console.log(err);
     // })
-    console.log(id)
+    // console.log(id)
 });
+
+
+//UPDATE post fomulier
+app.post('/profile/:id', upload.single('filename'), (req,res) => {
+    let id = req.params.id  
+    UserConstructor.findByIdAndUpdate(id, {$set: { gamerAvatar: req.file.path , gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
+    { sort: {_id: -1},    upsert: true  }, 
+    (result) => {    
+        // if (err) 
+        // return 
+        // res.send(err)    
+        // res.send('updated')
+        res.redirect(`/profile/${id}`)  
+        console.log('updated')
+    })
+    // res.send('updated') 
+    // console.log('updated')
+})
+
+
+
+app.put('/profile/:id', (req, res) => {
+    let id = req.params.id
+    UserConstructor.findByIdAndUpdate(idGamer, {$set: {gamerNickName: 'Gohan', gamerFavGame: 'Warzone'}})
+    
+    console.log(id);
+    
+});
+
+// Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
+app.delete('/profile/:id', (req, res) => {
+
+    let id = req.params.id
+    console.log(id)
+    UserConstructor.findByIdAndDelete(id)
+    .then(result => {
+        // res.json(result)
+        // res.send('profiel is verwijderd')
+        console.log(result)
+    })
+    .catch(err => {
+        console.log(err);
+    })  
+    // res.render('profile.pug',  {
+    //     userAva: req.file.path,
+    //     nameGamer: req.body.username,
+    //     favGame: req.body.game,
+    //     favChar: req.body.character
+    // })
+});
+
+
+
 
 //Hieronder maakt ik een request functie aan waar de homepagina wordt gerenderd
 app.get('/home', (req, res) => {
@@ -189,15 +249,7 @@ app.get('/home', (req, res) => {
 });
 
 
-// Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
-app.delete('/profile', (req, res) => {
-    res.render('profile.pug',  {
-        userAva: req.file.path,
-        nameGamer: req.body.username,
-        favGame: req.body.game,
-        favChar: req.body.character
-    })
-});
+
 
 // app.post('/profile', urlencodedParser, function (req, res) {
 //     let data = [];
