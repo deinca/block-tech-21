@@ -170,7 +170,7 @@ app.get('/profile/:id', (req,res) => {
         favChar: newGamer.gamerFavChar,
         uploaded: newGamer.uploaded,
         idGamer: newGamer._id,
-        reqDelete: 'delete',
+        reqDelete: 'post',
         formAction: '/profile/' + newGamer._id,
         reqMethod: 'post'
         }) 
@@ -186,7 +186,7 @@ app.get('/profile/:id', (req,res) => {
 //UPDATE post fomulier
 app.post('/profile/:id', upload.single('filename'), (req,res) => {
     let id = req.params.id  
-    UserConstructor.findByIdAndUpdate(id, {$set: { gamerAvatar: req.file.path , gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
+    UserConstructor.findByIdAndUpdate(id, {$set: { gamerAvatar: req.file.path, gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
     { sort: {_id: -1},    upsert: true  }, 
     (result) => {    
         // if (err) 
@@ -200,37 +200,61 @@ app.post('/profile/:id', upload.single('filename'), (req,res) => {
     // console.log('updated')
 })
 
+// //DELETE post fomulier
+// app.post('/profile/:id', (req,res) => {
+//     let id = req.params.id
+//     UserConstructor.findByIdAndDelete(id,   
+//         (err, result) => {    
+//             if (err) 
+//             return 
+//             // res.send(500, err)    
+//             res.redirect('/deleted')  
+//         })
+// })
 
-
-app.put('/profile/:id', (req, res) => {
+//DELETE post fomulier
+app.post('/delete/:id', (req, res)=> {
     let id = req.params.id
-    UserConstructor.findByIdAndUpdate(idGamer, {$set: {gamerNickName: 'Gohan', gamerFavGame: 'Warzone'}})
-    
-    console.log(id);
-    
-});
-
-// Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
-app.delete('/profile/:id', (req, res) => {
-
-    let id = req.params.id
-    console.log(id)
-    UserConstructor.findByIdAndDelete(id)
-    .then(result => {
-        // res.json(result)
-        // res.send('profiel is verwijderd')
-        console.log(result)
+    UserConstructor.findByIdAndDelete(id,   
+        (err, result) => {    
+            if (err) 
+            return 
+            // res.send(500, err) 
+    res.send('Je profiel is verwijderd <br> <a href="/home"> <button> Terug naar home als gast? </button></a> ')
     })
-    .catch(err => {
-        console.log(err);
-    })  
-    // res.render('profile.pug',  {
-    //     userAva: req.file.path,
-    //     nameGamer: req.body.username,
-    //     favGame: req.body.game,
-    //     favChar: req.body.character
-    // })
-});
+}) 
+
+
+
+// app.put('/profile/:id', (req, res) => {
+//     let id = req.params.id
+//     UserConstructor.findByIdAndUpdate(idGamer, {$set: {gamerNickName: 'Gohan', gamerFavGame: 'Warzone'}})
+    
+//     console.log(id);
+    
+// });
+
+// // Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
+// app.delete('/profile/:id', (req, res) => {
+
+//     let id = req.params.id
+//     console.log(id)
+//     UserConstructor.findByIdAndDelete(id)
+//     .then(result => {
+//         // res.json(result)
+//         // res.send('profiel is verwijderd')
+//         console.log(result)
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })  
+//     // res.render('profile.pug',  {
+//     //     userAva: req.file.path,
+//     //     nameGamer: req.body.username,
+//     //     favGame: req.body.game,
+//     //     favChar: req.body.character
+//     // })
+// });
 
 
 

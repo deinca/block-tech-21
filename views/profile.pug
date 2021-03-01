@@ -17,9 +17,12 @@ html
                 p Jouw Favoriete Character is: 
                     span=favChar
                 p
-                    - let idu = "/profile/" + idGamer
-                    a(data-id=idGamer)
-                        button Verwijder gegevens
+                - let btnAct = '/delete/' + idGamer
+                form(id="profile-form" action=btnAct method=reqDelete enctype="multipart/form-data")
+                    
+                    section     
+                        button(type="submit") Verwijder gegevens
+
             else
             
                 h2 Hallo iCu Gast!
