@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Dit is mijn repo voor Block Tech Course 20-21",
   "main": "index.js",
+  "engines": {
+    "node": "14.15.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "say-hello": "echo 'Hello World!'",
     "hola": "echo 'Hola como estas? Estoy en el package.json documento y te estoy hablando por el NPM programma (^.^)!'"
-  },
-  "engines": {
-    "node": "14.15.4"
   },
   "repository": {
     "type": "git",

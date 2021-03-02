@@ -37,8 +37,9 @@ mongoose.connect(url, {
 
 
 //Port listening setting
-const host = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT || 2021;
+const port = process.env.PORT || '0.0.0.0';
+const host = process.env.HOST || 2021;
+
 
     //Hieronde maar ik een const variabel zodat 
     const messageInCamelCase = camelCase('testing-this-text-in-camel-case');
