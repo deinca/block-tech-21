@@ -34,21 +34,6 @@ mongoose.connect(url, {
     .then((result) => console.log('Mongo-Database is connected (^.^)!'))
     .catch((err) => console.log(err))
 
-// In deze variabel zet ik een model/ schema/ blauw druk hoe de objecten eruit moeten zien, dit wordt ook gezien als een constructor
-// const Cat = mongoose.model('users', { name: String }); // **Example
-
-
-
-// Binnen de deze get req zullen wij de data doorsturen naar onze database
-// app.get('/add-object', (req, res)=>{
-//     const kitty = new Cat({ name: 'deinca' });
-//     kitty.save().then(() => {
-//         res.send(kitty)
-//         console.log('meow')});
-// }); **Example
-
-
-
 
 //Port listening setting
 const port = process.env.DB_PORT || 2021;
@@ -62,7 +47,7 @@ const port = process.env.DB_PORT || 2021;
 let jsonParser = bodyParser.json()
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//Storage files hieronder stel ik de bestanden namen erbij
+//Storage files hieronder stel ik de bestand namen 
 let storage = multer.diskStorage({
     destination: function (req, file, cb){
         cb(null, './static/uploads/')
@@ -71,6 +56,7 @@ let storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
     }
 })
+// Met deze variable kan multer gebruiken om de geuploade bestanden een bepaalde naam moet krijgen.
 let upload = multer({storage: storage})
 
 //Hieronder maakt ik een request functie aan waar de welkompagina wordt gerenderd
@@ -89,33 +75,7 @@ app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina", formAction:"/profile", reqMethod:"post", reqDelete: 'delete'})
 });
 
-// // ***** zet weer actief 
-// //Hieronder maakt ik een functie aan waar ik afbeeldingen en informatie wordt gere-renderd in de profile pagina,die af komt van de fomulier.
-// app.post('/profile', upload.single('filename'), (req, res) => {
-//     // res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`); 
-//     res.render('profile.pug', {
-//         infoTitel:`Hey ${req.body.username}!, dit zijn je gegevens`,
-//         userAva: req.file.path,
-//         nameGamer: req.body.username,
-//         favGame: req.body.game,
-//         favChar: req.body.character,
-//         uploaded: true
-//     })   
-
-//     //Hieronder zet ik de data in een array die wordt opgehaald door de body-parser
-//     let data = [];
-//     data.push({       
-//         photopath:req.file.path,
-//         username: req.body.username,
-//         game: req.body.game,
-//         character: req.body.character,
-//         photofile: req.file
-//     })
-//     //hieronder test ik of de data goed is doorgegeven
-//     console.log('De data hieronder is geupload',data);
-// });
-
-// // ********
+// Dit mijn constructor schema model voor de gebruikers, deze schema wordt aangemaakt voor elke nieuwe object die in de database komt
 const UserConstructor = mongoose.model('users', {
     gamerAvatar: String,
     gamerNickName: String,
@@ -125,6 +85,7 @@ const UserConstructor = mongoose.model('users', {
 
 });
 
+//POST = hieronder zeg ik dat objecten gemaakt kunnen worden als er bepaalde dat wordt verstuur vanuit de client-side
 app.post('/profile', upload.single('filename'), (req, res) => {
     // maar een object aan met de ingevolde fomulier
     const newGamer = new UserConstructor({ 
@@ -137,17 +98,7 @@ app.post('/profile', upload.single('filename'), (req, res) => {
     console.log(newGamer)
     newGamer.save().then(() => {
 
-        // res.send('De volgende object is in de database opgeslagen')
-        // res.render('profile.pug', {
-        //     infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
-        //     userAva: newGamer.gamerAvatar,
-        //     nameGamer: newGamer.gamerNickName,
-        //     favGame: newGamer.gamerFavGame,
-        //     favChar: newGamer.gamerFavChar,
-        //     link: newGamer._id,
-        //     uploaded: newGamer.uploaded
-        // })
-        
+        //We geven een redirect aan zodat we de net geuploade data weergegven wordt op de profile pagina met een ID query 
         res.redirect(`/profile/${newGamer._id}`)
 
         console.log('A new user object is uploaded (^.^)!')
@@ -155,12 +106,14 @@ app.post('/profile', upload.single('filename'), (req, res) => {
 
 });
 
+//FIND & INSERT = hieronder zeggen we dat als er een bepaalde id wordt meegeven vanuit de client-side, 
+// dat de data gehaald wordt van uit de database uit de specifieke id
 app.get('/profile/:id', (req,res) => {
 
     
     let id = req.params.id
     UserConstructor.findById(id)
-    // UserConstructor.findById(req.params.id)
+
     .then(newGamer => {
         res.render('profile.pug', {
         infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
@@ -174,45 +127,35 @@ app.get('/profile/:id', (req,res) => {
         formAction: '/profile/' + newGamer._id,
         reqMethod: 'post'
         }) 
-        // console.log(newGamer.gamerNickName)
+        // console.log(newGamer.gamerNickName) // mocht er iets fouts gaan dan kunnen we kijken als er echt data wordt opgehaald
     })
-    // .catch((err) => {
-    // console.log(err);
-    // })
-    // console.log(id)
+    .catch((err) => {
+    console.log(err);
+    })
+    // console.log(id) //
 });
 
 
-//UPDATE post fomulier
+//UPDATE IN THE DATABASE =  
+// Ik heb gekozen om de data te laten bwereken door de client-side met een post fomulier, omdat ik de client JS wil gebruiken voor functioinaliteit in de cleintside.
+// want volgens de MDN website heb ik gezien dat je een PUT handler kan gebruiken maar dit gaat samen met de Client JS en dit leek mij niet handig omdat ik denk aan de Progessive Enhancement principe
+
 app.post('/profile/:id', upload.single('filename'), (req,res) => {
     let id = req.params.id  
     UserConstructor.findByIdAndUpdate(id, {$set: { gamerAvatar: req.file.path, gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
     { sort: {_id: -1},    upsert: true  }, 
     (result) => {    
-        // if (err) 
-        // return 
-        // res.send(err)    
-        // res.send('updated')
+        if (err) 
+        return 
+        //zodra de boevenstade velden zijn aangepast in de database, zeg ik dat de gebruiker weer terug gestuurd wordt naar zijn profiel pagina.
         res.redirect(`/profile/${id}`)  
-        console.log('updated')
+        console.log(`id:${id} is updated`)
     })
-    // res.send('updated') 
-    // console.log('updated')
+
 })
 
-// //DELETE post fomulier
-// app.post('/profile/:id', (req,res) => {
-//     let id = req.params.id
-//     UserConstructor.findByIdAndDelete(id,   
-//         (err, result) => {    
-//             if (err) 
-//             return 
-//             // res.send(500, err)    
-//             res.redirect('/deleted')  
-//         })
-// })
-
-//DELETE post fomulier
+//DELETE FROM THE DATABASE = Hier heb ik ook hetzelfde toegepast wat ik bij het UPDATE heb gedaan dur ik heb niet de delete hanlder gebruikt vanwegen de Progresseive Enhancement principe.
+// Zo kunnen mensen die niet het CSS of bepaalde dunctionaliteit in de Cleint JS alsnog gebruikt maken van mijn applicatie.
 app.post('/delete/:id', (req, res)=> {
     let id = req.params.id
     UserConstructor.findByIdAndDelete(id,   
@@ -224,42 +167,9 @@ app.post('/delete/:id', (req, res)=> {
     })
 }) 
 
-
-
-// app.put('/profile/:id', (req, res) => {
-//     let id = req.params.id
-//     UserConstructor.findByIdAndUpdate(idGamer, {$set: {gamerNickName: 'Gohan', gamerFavGame: 'Warzone'}})
-    
-//     console.log(id);
-    
-// });
-
-// // Hieronder probeer ik een delete functie aan te maken doordat de data wordt opgehaald van de formulier met een knop ook te kunnen verwaijderen.
-// app.delete('/profile/:id', (req, res) => {
-
-//     let id = req.params.id
-//     console.log(id)
-//     UserConstructor.findByIdAndDelete(id)
-//     .then(result => {
-//         // res.json(result)
-//         // res.send('profiel is verwijderd')
-//         console.log(result)
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })  
-//     // res.render('profile.pug',  {
-//     //     userAva: req.file.path,
-//     //     nameGamer: req.body.username,
-//     //     favGame: req.body.game,
-//     //     favChar: req.body.character
-//     // })
-// });
-
-
-
-
-//Hieronder maakt ik een request functie aan waar de homepagina wordt gerenderd
+//FIND ALL = Hieronder zeg ik dat als de client naar home gaat, dat alle objecten moeten worden opgehaald vanuit de database
+// en weergegeven moeten worden in de client door de PUG egine. Hiervoor heb ik de (result) call-back gebruikt en in een variabel gezet met de naam usersData.
+// Zo kan de PUG enige profiel kaarten aanmaken.
 app.get('/home', (req, res) => {
     
     UserConstructor.find()
@@ -271,24 +181,6 @@ app.get('/home', (req, res) => {
         console.log(err);
     })
 });
-
-
-
-
-// app.post('/profile', urlencodedParser, function (req, res) {
-//     let data = [];
-//     data.push({       
-//         filename: req.body.filename,
-//         username: req.body.username,
-//         game: req.body.game,
-//         character: req.body.character,
-//         photo: req.file
-
-//     })
-//     console.log(data);
-//     res.send(`<h1>Dit zijn je gegevens</h1><p><img src="/static/uploads/${req.file.path}"></p><ul><li>${req.body.filename}</li><li>${req.body.username}</li><li>${req.body.game}</li><li>${req.body.character}</li></ul>`);
-// });
-
 
 // Hier geef ik aan dat als er een willekeurige path wordt aangevraagd door de client-side en deze bestaat niet dan krijg je een error 404 pagina.
 app.get('*', (req, res) =>{
