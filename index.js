@@ -36,6 +36,7 @@ mongoose.connect(url, {
 
 
 //Port listening setting
+const host = process.env.HOST || '0.0.0.0';
 const port = process.env.DB_PORT || 2021;
 
     //Hieronde maar ik een const variabel zodat 
@@ -188,8 +189,8 @@ app.get('*', (req, res) =>{
 });
 
 // Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren. 
-app.listen(port, () => {
+app.listen(port, host, () => {
   // we maken een locale server aan
-    console.log(`The app is listening to port ${port}`);
+    console.log(`The app is listening to port ${port} or ${host}`); 
   // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
 });
