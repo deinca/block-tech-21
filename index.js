@@ -25,7 +25,7 @@ app.set('view engine', 'pug');
 
 // Database URI
 // const url = 'mongodb+srv://'+ process.env.DB_USERNAME +':'+ process.env.DB_PASSWORD +'@icudata.bp6bm.mongodb.net/'+ process.env.DB_NAME +'?retryWrites=true&w=majority';
- const url = process.env.DB_URL;
+const url = process.env.DB_URL;
 
 // Conecting Database
 mongoose.connect(url, {
