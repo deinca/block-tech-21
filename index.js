@@ -35,10 +35,6 @@ mongoose.connect(url, {
     .then((result) => console.log('Mongo-Database is connected (^.^)!'))
     .catch((err) => console.log(err))
 
-
-
-
-
     //Hieronde maar ik een const variabel zodat 
     const messageInCamelCase = camelCase('testing-this-text-in-camel-case');
     // print de bovenstaande variabel
@@ -104,6 +100,9 @@ app.post('/profile', upload.single('filename'), (req, res) => {
 
         console.log('A new user object is uploaded (^.^)!')
     })
+    .catch((err) => {
+        console.log(err);
+    })
 
 });
 
@@ -131,7 +130,7 @@ app.get('/profile/:id', (req,res) => {
         // console.log(newGamer.gamerNickName) // mocht er iets fouts gaan dan kunnen we kijken als er echt data wordt opgehaald
     })
     .catch((err) => {
-    console.log(err);
+        console.log(err);
     })
     // console.log(id) //
 });
