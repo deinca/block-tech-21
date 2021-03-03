@@ -17,7 +17,7 @@ const app = express();
 app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
 
-// hieronder zeg ik dat elke keer als er iets wordt gedaan 
+mongoose.set('bufferCommands', false);
 
 // Hieronder stel ik mijn files in
 app.set('views', './views');
@@ -27,10 +27,10 @@ app.set('view engine', 'pug');
 // const url = 'mongodb+srv://'+ process.env.DB_USERNAME +':'+ process.env.DB_PASSWORD +'@icudata.bp6bm.mongodb.net/'+ process.env.DB_NAME +'?retryWrites=true&w=majority';
 const url = process.env.DB_URL;
 
+
+
 // Conecting Database
-mongoose.connect(url, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true })
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true })
     // We gebruiken de promise method om erros of berichten te loggen 
     .then((result) => console.log('Mongo-Database is connected (^.^)!'))
     .catch((err) => console.log(err))
