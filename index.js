@@ -36,9 +36,7 @@ mongoose.connect(url, {
     .catch((err) => console.log(err))
 
 
-//Port listening setting
-const port = process.env.PORT || '0.0.0.0';
-const host = process.env.HOST || 2021;
+
 
 
     //Hieronde maar ik een const variabel zodat 
@@ -189,6 +187,11 @@ app.get('/home', (req, res) => {
 app.get('*', (req, res) =>{
     res.render('404', {title:'404 page', paginaTitel: "404 pagina niet gevonden", message:'oeps deze pagina bestaat helaas niet'});
 });
+
+
+//Port listening setting
+const port = process.env.PORT || '0.0.0.0';
+const host = process.env.HOST || 2021;
 
 // Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren. 
 app.listen(port, host, () => {
