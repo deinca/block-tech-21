@@ -28,7 +28,7 @@ app.set('view engine', 'pug');
 const url = process.env.DB_URL;
 
 // Conecting Database
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
     // We gebruiken de promise method om erros of berichten te loggen 
     .then((result) => console.log('Mongo-Database is connected (^.^)!'))
     .catch((err) => console.log(err))
@@ -140,9 +140,9 @@ app.get('/profile/:id', (req,res) => {
 
 app.post('/profile/:id', upload.single('filename'), (req,res) => {
     let id = req.params.id  
-    UserConstructor.findByIdAndUpdate(id, {$set: { gamerAvatar: req.file.path, gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
+    UserConstructor.findByIdAndUpdate(id, {$set: {gamerAvatar: req.file.path, gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
     { sort: {_id: -1},    upsert: true  }, 
-    (result) => {    
+    (err, result) => {    
         if (err) 
         return 
         //zodra de boevenstade velden zijn aangepast in de database, zeg ik dat de gebruiker weer terug gestuurd wordt naar zijn profiel pagina.
