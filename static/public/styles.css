@@ -1,16 +1,178 @@
-.bg-black {
-    background-color: black;
+/* /Colorpallets/ */
+.colors{
+    color:#FF3B52;
+    color:#BB004E;
+    color:#ADF218;
+    color:#1F1FFF;
+    color:#72EFDD;
+    color:#006466;
+    color:#140300;
+
 }
-.fnt-white {
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch:400');
+
+/* / BODY / */
+html {font-size: 100%;} /*16px*/
+
+body {
+    display: block;
+    margin: 0;
+    background: #140300;
+    color: #72EFDD;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+}
+body::after {
+    content: "";
+    background-image: url(/static/images/neon-lights.jpg);
+    background-size: cover;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    height: 100vh;
+    opacity: 0.45;
+}
+
+/* /PARAGRAFS/ */
+p {margin-bottom: 1rem;}
+
+
+/* /HEADINGS/ */
+h1, h2, h3, h4, h5 {
+    margin: 2rem 0 1rem;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2.441rem;
+}
+
+h2 {font-size: 2.052rem;}
+
+h3 {font-size: 1.953rem;}
+
+h4 {font-size: 1.563rem;}
+
+h5 {font-size: 1.25rem;}
+
+small, .text_small {font-size: 0.8rem;}
+
+/* /HEADER/ */
+header{
+    border-bottom: #FF3B52 solid 0.1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color:#0a0a0aa8;
+}
+
+/* /NAV/ */
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+nav h2 {
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    padding: 0;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+nav li {
+    list-style: none;
+}
+
+/* /MAIN/ */
+main{
+    margin: 0 1.5rem;
+    min-height: 75vh;
+}
+
+.profile-box img {
+    width: 100%;
+}
+
+/* /FOOTER/ */
+footer{
+    border-top: #FF3B52 solid 0.1rem;
+    height: 4rem;
+}
+
+/* /// INPUTS /// */
+.button {
+    background-color: #1F1FFF;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ADF218;
+    padding: 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ///default changes/// */
+a{
+    text-decoration: none;
+    color: #72EFDD;
+}
+a:visited {
     color: white;
 }
+
+/* //PAGES// */
+
+
+
+/* /HOME GAMERS PAGE/ */
 section.profile-section {
     display: flex;
+    flex-wrap: wrap;
 }
 
 section.profile-box {
-    background: #eeee;
+    background: #2b0c2f;
+    border-radius: 1rem;
     padding: 1em;
     margin: 1em;
     width: 15%;
+    box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
 }
+
+/* /PROFILE PAGE/ */
+article.form-box {
+    background: #4c034c;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin: 2rem 0rem;
+    box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
+}
+
+.colors{
+    color:#FF3B52;
+    color:#BB004E;
+    color:#ADF218;
+    color:#1F1FFF;
+    color:#72EFDD;
+    color:#006466;
+    color:#140300;
+}
+
+/* /WELKOM PAGE/ */
+
+
+/* /404 PAGE/ */

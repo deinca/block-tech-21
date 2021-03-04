@@ -1,14 +1,24 @@
 doctype html
 html
-  head
-    title= title
-  body
-    h1= message
-    section
-      P I Chellenge you Dag een gamer uit om met jou samen of tegen je te spelen!
-    
-    section
-      a(href="/login") 
-        button Login als gast
-      //- we zouden hier een Insert Coin concept toepassen.
-  include includes/footer.pug
+	head
+		title=title
+		meta(charset="UTF-16")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		script(src='/static/public/functions.js')
+		link(rel="stylesheet" href='/static/public/styles.css')
+
+	body
+		header
+			h1 iCu matching app
+
+		main 
+			article
+				h2=message
+				section
+					p I Chellenge you Dag een gamer uit om met jou samen of tegen je te spelen!
+				section
+					a(href="/home")
+						button(class="button") Inloggen als gast
+
+		include includes/footer.pug

@@ -7,7 +7,7 @@ mixin profiles(profileData)
             p= profileData.gamerNickName
             p= profileData.gamerFavGame
             p= profileData.gamerFavChar
-            button I Challenge You
+            button( class="button") I Challenge You
 
 doctype html
 html
@@ -15,13 +15,15 @@ html
     
     body
         include includes/header.pug
-        
-        section 
-            p Dit zijn de actuele gamers die je kan uitdagen.
+        main
+            article
+                h2=paginaTitel
+                section 
+                    p Dit zijn de actuele gamers die je kan uitdagen.
 
-        section(class="profile-section")  
-            each gamer in gamers 
-                +profiles(gamer)
+                section(class="profile-section")  
+                    each gamer in gamers 
+                        +profiles(gamer)
 
 
 

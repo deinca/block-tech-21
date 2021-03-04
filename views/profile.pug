@@ -4,31 +4,32 @@ html
     
     body
         include includes/header.pug
+        main
+            article
+                if uploaded   
+                    h2=infoTitel
 
-        section
-            if uploaded   
-                h2=infoTitel
-                p Jouw profiel afbeelding is: 
-                    img(src=userAva) 
-                p Jouw iCu naam is:  
-                    span=nameGamer
-                p Jouw Favoriete game is: 
-                    span=favGame
-                p Jouw Favoriete Character is: 
-                    span=favChar
-                p
-                - let btnAct = '/delete/' + idGamer
-                form(id="profile-form" action=btnAct method=reqDelete enctype="multipart/form-data")
-                    
-                    section     
-                        button(type="submit") Verwijder gegevens
+                    section(class="prfl-u-box")  
+                        p Jouw profiel afbeelding is: 
+                            img(src=userAva) 
+                        p Jouw iCu naam is:  
+                            span=nameGamer
+                        p Jouw Favoriete game is: 
+                            span=favGame
+                        p Jouw Favoriete Character is: 
+                            span=favChar
+                        p
+                        - let btnAct = '/delete/' + idGamer
+                        form(id="profile-form" action=btnAct method=reqDelete enctype="multipart/form-data")
+                            section     
+                                button(type="submit" class="button") Verwijder gegevens
 
-            else
-            
-                h2 Hallo iCu Gast!
-                p Om te kunnen matchen met andere gamers, is het nodig dat je hieronder je gegevens aan ons door geeft. 
+                else
+                
+                    h2 Profiel pagina
+                    p Hallo iCu Gast! om te kunnen matchen met andere gamers, is het nodig dat je hieronder je gegevens aan ons door geeft. 
 
-            section
+            article(class="form-box")
                 h2 Profiel gegevens bewerken
                 form(id="profile-form" action=formAction method=reqMethod enctype="multipart/form-data")
                     h3 Stel een profiel foto in:
@@ -58,7 +59,7 @@ html
                             input(id="favmain" type="text"  name="character") 
                     section 
                         p
-                            button(type="submit") Opslaan
+                            button(type="submit" class="button") Opslaan
 
 
     include includes/footer.pug
