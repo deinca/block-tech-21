@@ -53,7 +53,7 @@ Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de t
 * `nodemon index.js`
 
 ### Documentatie
-Raadpleeg mijn documentatie als je ergens vast zit
+Raadpleeg mijn documentatie als je ergens vast zit of benieuwd bent naar mijn proces
 
 * [Project Wiki](https://github.com/deinca/block-tech-21/wiki)
 
