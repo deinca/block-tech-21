@@ -1,17 +1,17 @@
-# Welkom
+# :octocat: Welkom 
 Dit is mijn repo voor Block Tech Course 20-21
 
-## Concept
+## :space_invader: Concept
 Binnen block tech heb ik gewerkt aan een feature voor een matching app. De app is gemaakt met NODE.js en gebruik gemaakt van MONGO-DB voor mijn database. De app is ge-deployd en wordt geserveerd door Heroku en je kan de app bezoeken door [hierop te klikken](https://icu-app.herokuapp.com/).
 
 ### iCu matching app preview 
 ![app-screenshot-versie-1](https://raw.githubusercontent.com/deinca/block-tech-21/main/assets/app-preview-imgs/app-ss-v1.png)
 
-## Pre-installatie   
-Allereerst heb je kennis nodig van JavaScipt, HTML, CSS, NODE.js, NPM en MONGO DB.
+## :wrench: Pre-installatie   
+Allereerst voor dat je gebruik gaat maken van mijn repo, heb je kennis nodig van JavaScipt, HTML, CSS, NODE.js, NPM en MONGO DB.
 
-Je moet ook bekend zijn met NODE.js, Git en NPM en hebben geinstalleerd in je computer voor dat je deze repo cloned.
-Dit doe je door:
+Zo begin met NODE.js, Git en NPM te installeren
+Dit doe je met de volgende commandos gebruiken in je terminal:
 * `node install`
 * `npm install`
 * `git install`
@@ -25,7 +25,7 @@ of je kan kijken of je de programmas al in je computer hebt staan door in de ter
 * `git --version`
 
 
-## App Installatie
+## :hammer: App Installatie
 Clone mijn repo:
 * `git clone https://github.com/deinca/block-tech-21`
 
@@ -52,7 +52,7 @@ dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft 
 Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de terminal het volgende uit te voeren:
 * `nodemon index.js` 
 
-### Documentatie
+### :books: Documentatie
 Raadpleeg mijn documentatie als je ergens vast zit of benieuwd bent naar mijn proces
 
 * [Project Wiki](https://github.com/deinca/block-tech-21/wiki)
