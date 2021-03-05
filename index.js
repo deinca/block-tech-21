@@ -1,25 +1,24 @@
 const express = require('express'); // hiermee maak ik een applicatie mee bouwen
-const loDash = require('lodash'); 
-const camelCase = require('camelcase');
-const pug = require('pug');
 const slug = require('slug');
+const pug = require('pug');
 const bodyParser = require('body-parser');
 const multer  = require('multer')
 // const mongo = require('mongodb'); // geprobeerd maar duurde mij te lang
 const mongoose = require('mongoose');
-const { result } = require('lodash');
+
 // Door de dotenv NPM package aante roepen kan ik codes variabelen uit de .env bestand gebruiken. 
 const dotenv = require('dotenv').config();
 
 // In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
 const app = express();
 
+// Dit heb ik gebruik om te H13 error op heroku op te lossen
+mongoose.set('bufferCommands', false);
+
 app.use('/static', express.static('static'));
 // alle files die gepubliceerd moeten worden via de client zitten in de directory static
 
-mongoose.set('bufferCommands', false);
-
-// Hieronder stel ik mijn files in
+// Hieronder stel ik waar mijn views map staat en welk template engine ik gebruik om html te compilen
 app.set('views', './views');
 app.set('view engine', 'pug');
 
@@ -33,16 +32,11 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindA
     .then((result) => console.log('Mongo-Database is connected (^.^)!'))
     .catch((err) => console.log(err))
 
-    //Hieronde maar ik een const variabel zodat 
-    const messageInCamelCase = camelCase('testing-this-text-in-camel-case');
-    // print de bovenstaande variabel
-    console.log(messageInCamelCase);
-
-// Body-parser variabelen die het mogelijk makne om de data op te vragen van een formulier
+// Body-parser variabelen die het mogelijk maken om de data op te vragen van een formulier
 let jsonParser = bodyParser.json()
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//Storage files hieronder stel ik de bestand namen 
+//Hieronder wordt de storage gedefineerd en hoe de naam moet worden gegenereerd
 let storage = multer.diskStorage({
     destination: function (req, file, cb){
         cb(null, './static/uploads/')
@@ -51,18 +45,18 @@ let storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
     }
 })
+
 // Met deze variable kan multer gebruiken om de geuploade bestanden een bepaalde naam moet krijgen.
 let upload = multer({storage: storage})
 
-//Hieronder maakt ik een request functie aan waar de welkompagina wordt gerenderd
+//Hieronder maakt ik een request functie aan waar de welkom-pagina wordt gerenderd
 app.get('/', (req, res) => {
-    res.render('welkom',  {title: "Welkom in de iCu website", message: "Welkom in de iCu website" });
-
+    res.render('welkom.pug', {paginaTitel: "Welkom in de iCu webapp"});
 });
 
-//Hieronder maakt ik een request functie aan waar de loginpagina wordt gerenderd
-app.get('/login', (req,res) => {
-    res.render('login.pug', {paginaTitel: "Login pagina"})
+//Hieronder maakt ik een request functie aan waar de login-pagina wordt gerenderd
+app.get('/matches', (req,res) => {
+    res.render('matches.pug', {paginaTitel: "Matches pagina"})
 });
 
 //Hieronder maakt ik een request functie aan waar de profile wordt gerenderd
@@ -70,14 +64,13 @@ app.get('/profile', (req,res) => {
     res.render('profile.pug', {paginaTitel: "Profiel pagina", formAction:"/profile", reqMethod:"post", reqDelete: 'delete'})
 });
 
-// Dit mijn constructor schema model voor de gebruikers, deze schema wordt aangemaakt voor elke nieuwe object die in de database komt
+// Dit is mijn constructor schema model voor de gebruikers, deze schema wordt aangemaakt voor elke nieuwe object die in de database komt in collections 'users'
 const UserConstructor = mongoose.model('users', {
     gamerAvatar: String,
     gamerNickName: String,
     gamerFavGame:String,
     gamerFavChar:String,
     uploaded: Boolean,
-
 });
 
 //POST = hieronder zeg ik dat objecten gemaakt kunnen worden als er bepaalde dat wordt verstuur vanuit de client-side
@@ -90,12 +83,15 @@ app.post('/profile', upload.single('filename'), (req, res) => {
         gamerFavChar: req.body.character,
         uploaded: true
     });
+    //Hiermee kan ik weten wat voor data wordt opgeslagen in de database
     console.log(newGamer)
+    
+    //Nadat de data is opgeslagen in een nieuwe variabel zeg ik dat opgeslagen moet worden in de database
     newGamer.save().then(() => {
-
-        //We geven een redirect aan zodat we de net geuploade data weergegven wordt op de profile pagina met een ID query 
+        //Na het opslaan geven we een redirect aan zodat we de net geuploade data weergegven wordt op de profile pagina met een ID query 
         res.redirect(`/profile/${newGamer._id}`)
 
+        //Hiermee weet ik zeker dat de data is geupload en dat de functie goed uit wordt gevoerd 
         console.log('A new user object is uploaded (^.^)!')
     })
     .catch((err) => {
@@ -107,11 +103,9 @@ app.post('/profile', upload.single('filename'), (req, res) => {
 //FIND & INSERT = hieronder zeggen we dat als er een bepaalde id wordt meegeven vanuit de client-side, 
 // dat de data gehaald wordt van uit de database uit de specifieke id
 app.get('/profile/:id', (req,res) => {
-
-    
     let id = req.params.id
-    UserConstructor.findById(id)
 
+    UserConstructor.findById(id)
     .then(newGamer => {
         res.render('profile.pug', {
         infoTitel:`Hey ${newGamer.gamerNickName}!, dit zijn je gegevens`,
@@ -137,9 +131,9 @@ app.get('/profile/:id', (req,res) => {
 //UPDATE IN THE DATABASE =  
 // Ik heb gekozen om de data te laten bwereken door de client-side met een post fomulier, omdat ik de client JS wil gebruiken voor functioinaliteit in de cleintside.
 // want volgens de MDN website heb ik gezien dat je een PUT handler kan gebruiken maar dit gaat samen met de Client JS en dit leek mij niet handig omdat ik denk aan de Progessive Enhancement principe
-
 app.post('/profile/:id', upload.single('filename'), (req,res) => {
     let id = req.params.id  
+    
     UserConstructor.findByIdAndUpdate(id, {$set: {gamerAvatar: req.file.path, gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}}, 
     { sort: {_id: -1},    upsert: true  }, 
     (err, result) => {    
@@ -158,10 +152,10 @@ app.post('/delete/:id', (req, res)=> {
     let id = req.params.id
     UserConstructor.findByIdAndDelete(id,   
         (err, result) => {    
-            if (err) 
-            return 
-            // res.send(500, err) 
-    res.send('Je profiel is verwijderd <br> <a href="/home"> <button> Terug naar home als gast? </button></a> ')
+        if (err) 
+        return 
+
+        res.render('delete', {paginaTitel: "Delete pagina"})
     })
 }) 
 
@@ -182,9 +176,8 @@ app.get('/home', (req, res) => {
 
 // Hier geef ik aan dat als er een willekeurige path wordt aangevraagd door de client-side en deze bestaat niet dan krijg je een error 404 pagina.
 app.get('*', (req, res) =>{
-    res.render('404', {title:'404 page', paginaTitel: "404 pagina niet gevonden", message:'oeps deze pagina bestaat helaas niet'});
+    res.render('404', {paginaTitel: "404 pagina niet gevonden", message:'oeps deze pagina bestaat helaas niet'});
 });
-
 
 //Port listening setting
 const port = process.env.PORT || '0.0.0.0';

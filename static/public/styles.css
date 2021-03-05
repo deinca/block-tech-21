@@ -1,5 +1,5 @@
 /* /Colorpallets/ */
-.colors{
+/* .colors{
     color:#FF3B52;
     color:#BB004E;
     color:#ADF218;
@@ -8,7 +8,8 @@
     color:#006466;
     color:#140300;
 
-}
+} */
+
 @import url('https://fonts.googleapis.com/css?family=Chakra+Petch:400');
 
 /* / BODY / */
@@ -80,6 +81,7 @@ nav{
 }
 nav h2 {
     margin: 0;
+    display: none;
 }
 
 nav ul {
@@ -109,6 +111,8 @@ main{
 footer{
     border-top: #FF3B52 solid 0.1rem;
     height: 4rem;
+    display: flex;
+    justify-content: center;
 }
 
 /* /// INPUTS /// */
@@ -125,16 +129,9 @@ footer{
     cursor: pointer;
 }
 
-/* ///default changes/// */
-a{
-    text-decoration: none;
-    color: #72EFDD;
-}
-a:visited {
-    color: white;
-}
 
-/* //PAGES// */
+
+/** //PAGES// **/
 
 /* /HOME GAMERS PAGE/ */
 section.profile-section {
@@ -160,17 +157,52 @@ article.form-box {
     box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
 }
 
-.colors{
-    color:#FF3B52;
-    color:#BB004E;
-    color:#ADF218;
-    color:#1F1FFF;
-    color:#72EFDD;
-    color:#006466;
-    color:#140300;
+section.prfl-u-box {
+    background-color: #006466;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
 }
 
-/* /WELKOM PAGE/ */
-
-
 /* /404 PAGE/ */
+
+
+/**LAYOUTS**/
+.content-center {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* ///default changes/// */
+a{
+    text-decoration: none;
+    color: #72EFDD;
+}
+a:visited {
+    color: white;
+}
+
+/* /MEDIA BRAKEPOINTs/ */
+
+/* /PHONE/ */
+@media only screen and (max-width: 37.5rem){
+    /* /HEADER/ */
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    /* Profiel pagina */
+    section.profile-section {
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+    section.profile-box {
+        width: 90%;
+    }
+}

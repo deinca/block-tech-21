@@ -7,9 +7,9 @@ html
         main
             article
                 if uploaded   
-                    h2=infoTitel
+                    h2(class="content-center")=infoTitel
 
-                    section(class="prfl-u-box")  
+                    section(class="prfl-u-box content-center")  
                         p Jouw profiel afbeelding is: 
                             img(src=userAva) 
                         p Jouw iCu naam is:  
@@ -26,8 +26,8 @@ html
 
                 else
                 
-                    h2 Profiel pagina
-                    p Hallo iCu Gast! om te kunnen matchen met andere gamers, is het nodig dat je hieronder je gegevens aan ons door geeft. 
+                    h2(class="content-center") Profiel pagina
+                    p(class="content-center") Hallo iCu Gast! om te kunnen matchen met andere gamers, is het nodig dat je hieronder je gegevens aan ons door geeft. 
 
             article(class="form-box")
                 h2 Profiel gegevens bewerken

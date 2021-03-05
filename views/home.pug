@@ -4,9 +4,10 @@ mixin profiles(profileData)
             h2= profileData.gamerNickName
             p
                 img(src=profileData.gamerAvatar)
-            p= profileData.gamerNickName
-            p= profileData.gamerFavGame
-            p= profileData.gamerFavChar
+            p Main game: 
+                span= profileData.gamerFavGame
+            p Main character: 
+                span= profileData.gamerFavChar
             button( class="button") I Challenge You
 
 doctype html
@@ -17,9 +18,8 @@ html
         include includes/header.pug
         main
             article
-                h2=paginaTitel
-                section 
-                    p Dit zijn de actuele gamers die je kan uitdagen.
+                h2(class="content-center")=paginaTitel
+                p(class="content-center") Dit zijn de actuele gamers die je kan uitdagen.
 
                 section(class="profile-section")  
                     each gamer in gamers 

@@ -1,0 +1,18 @@
+doctype html
+html 
+    include includes/head.pug
+        
+    body
+    include includes/header.pug
+    main
+        article(class="content-center")  
+            h2=paginaTitel
+
+            section 
+                p Je hebt helaas nog geen match met een gamer
+            
+            section
+                a(href="/home")
+                    button(class="button") Gamers Uitdagen
+    
+    include includes/footer.pug

@@ -1,11 +1,16 @@
 doctype html
-html
-  head
-    title= title
-    link(rel="stylesheet" href="/static/public/styles.css")
-  body(class="bg-black fnt-white")
+html 
+    include includes/head.pug
+        
+    body
     include includes/header.pug
-    
-    - let img = "/static/images/404-cat.jpg"
-    p= message 
-    img(src=img)
+    main
+      article(class="content-center") 
+        h2=paginaTitel
+        - let img = "/static/images/404-cat.jpg"
+        p=message 
+        img(src=img)
+        section
+          p
+            a(href="/home")
+                button(class="button") Gamers Uitdagen

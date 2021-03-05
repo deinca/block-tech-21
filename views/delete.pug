@@ -1,0 +1,18 @@
+doctype html
+html 
+    include includes/head.pug
+        
+    body
+    include includes/header.pug
+    main
+        article(class="content-center")  
+            h2=paginaTitel
+
+            section 
+                p Je profiel is verwijderd
+            
+            section
+                a(href="/home")
+                    button(class="button") Terug naar home als gast
+    
+    include includes/footer.pug
