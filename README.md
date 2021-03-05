@@ -3,6 +3,10 @@ Dit is mijn repo voor Block Tech Course 20-21
 
 ## Concept
 Binnen block tech ga ik werken aan een matching app die gemaakt is met NODE.js en NPM.
+
+### preview
+![app-screenshot-versie-1](https://raw.githubusercontent.com/deinca/block-tech-21/main/assets/app-preview-imgs/app-ss-v1.png)
+
 ## Wat heb ik nodig?
 Kennis in JavaScipt, HTML, CSS, NODE.js, NPM en MONGO DB.
 
@@ -47,6 +51,11 @@ dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft 
 
 Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de terminal het volgende uit te voeren:
 * `nodemon index.js`
+
+### Documentatie
+Raadpleeg mijn documentatie als je ergens vast zit
+
+* [Project Wiki](https://github.com/deinca/block-tech-21/wiki)
 
 ## License 
 [MIT license](https://github.com/deinca/block-tech-21/blob/main/LICENSE)
