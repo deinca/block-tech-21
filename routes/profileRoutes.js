@@ -32,7 +32,8 @@ router.post('/profile', upload.single('filename'), (req, res) => {
     console.log(newGamer)
     
     //Nadat de data is opgeslagen in een nieuwe variabel zeg ik dat opgeslagen moet worden in de database
-    newGamer.save().then(() => {
+    newGamer.save()
+    .then(() => {
         //Na het opslaan geven we een redirect aan zodat we de net geuploade data weergegven wordt op de profile pagina met een ID query 
         res.redirect(`/profile/${newGamer._id}`)
 
@@ -78,21 +79,15 @@ router.get('/profile/:id', (req,res) => {
 // want volgens de MDN website heb ik gezien dat je een PUT handler kan gebruiken maar dit gaat samen met de Client JS en dit leek mij niet handig omdat ik denk aan de Progessive Enhancement principe
 router.post('/profile/:id', upload.single('filename'), (req,res) => {
     let id = req.params.id  
-    
-    UserConstructor.findByIdAndUpdate(id, 
-        {$set: {
-            gamerAvatar: req.file.path, 
-            gamerNickName: req.body.username, 
-            gamerFavGame: req.body.game, 
-            gamerFavChar: req.body.character}
-        }, 
-        {sort: {_id: -1}, upsert: true }, 
-        (err, result) => {    
-            if (err) 
-            return 
-        //zodra de boevenstade velden zijn aangepast in de database, zeg ik dat de gebruiker weer terug gestuurd wordt naar zijn profiel pagina.
-        res.redirect(`/profile/${id}`)  
+
+
+    UserConstructor.findByIdAndUpdate(id, {$set:{ gamerAvatar: req.file.path, gamerNickName: req.body.username, gamerFavGame: req.body.game, gamerFavChar: req.body.character}})
+    .then(result => {
         console.log(`id:${id} is updated`)
+        res.redirect(`/profile/${id}`);
+    })
+    .catch( error => {
+        console.log(error);
     })
 
 })
@@ -101,13 +96,13 @@ router.post('/profile/:id', upload.single('filename'), (req,res) => {
 // Zo kunnen mensen die niet het CSS of bepaalde dunctionaliteit in de Cleint JS alsnog gebruikt maken van mijn applicatie.
 router.post('/delete/:id', (req, res)=> {
     let id = req.params.id
-    UserConstructor.findByIdAndDelete(id,   
-        (err, result) => {    
-        if (err) 
-        return 
-
+    UserConstructor.findByIdAndDelete(id)
+    .then(result => {
         res.render('delete', {paginaTitel: "Delete pagina"})
     })
+    .catch(error => {
+        console.log(`error ocured on post id..${error}`);
+    })   
 }) 
 
 module.exports = router;
