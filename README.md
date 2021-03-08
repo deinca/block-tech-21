@@ -21,7 +21,7 @@ Allereerst voor dat je gebruik gaat maakt van mijn repo, moet je bekend zijn met
 
     **Optioneel**
 
--   [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) mocht de app te kunnen deployen
+-   [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) mocht je de app te kunnen deployen
 
 ---
 
@@ -73,7 +73,7 @@ Als je al de bovenstaande hebt gedaan kun je de applicatie gebruiken door in de 
 
 -   `nodemon`
 
-### :books: Proces documentatie
+## :books: Proces documentatie
 
 Raadpleeg mijn documentatie als je benieuwd bent naar het proces van deze applicatie
 
