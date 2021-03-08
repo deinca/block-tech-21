@@ -1,61 +1,84 @@
-# :octocat: Welkom 
+# :octocat: Welkom
+
 Dit is mijn repo voor Block Tech Course 20-21
 
 ## :space_invader: Concept
-Binnen block tech heb ik gewerkt aan een feature voor een matching app. De app is gemaakt met NODE.js en gebruik gemaakt van MONGO-DB voor mijn database. De app is ge-deployd en wordt geserveerd door Heroku en je kan de app bezoeken door [hierop te klikken](https://icu-app.herokuapp.com/).
 
-### iCu matching app preview 
+Binnen block-tech heb ik gewerkt aan een feature voor een matching app. De app is gemaakt met NODE.js en gebruik gemaakt van MONGO-DB voor mijn database. De app is ge-deployd en wordt geserveerd door Heroku en je kan de app bezoeken door [hierop te klikken](https://icu-app.herokuapp.com/).
+
+### iCu matching app preview
+
 ![app-screenshot-versie-1](https://raw.githubusercontent.com/deinca/block-tech-21/main/assets/app-preview-imgs/app-ss-v1.png)
 
-## :wrench: Pre-installatie   
-Allereerst voor dat je gebruik gaat maken van mijn repo, heb je kennis nodig van JavaScipt, HTML, CSS, NODE.js, NPM en MONGO DB.
+## :wrench: Pre-installatie
 
-Zo begin met NODE.js, Git en NPM te installeren
+Allereerst voor dat je gebruik gaat maakt van mijn repo, moet je bekend zijn met:
+
+-   [NODE.js](https://nodejs.org/en/) om de applicatie te bewerken
+-   [MONGO DB.](https://docs.mongodb.com/drivers/node/quick-start/) om je eigen database aan te sluiten
+-   [NPM](https://docs.npmjs.com/about-npm) omdat er npm packages worden gebruikt
+-   [Mongoose](https://mongoosejs.com/) omdat we dit gebruik maken om data aan te maken en op te halen vantuit de data base.
+
+    **Optioneel**
+
+-   [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) mocht de app te kunnen deployen
+
+---
+
+#### Snelle pre-installatie voor beginners
+
+Mocht je newbie zijn begin begin dan met NODE.js, Git en NPM te installeren
 Dit doe je met de volgende commandos gebruiken in je terminal:
-* `node install`
-* `npm install`
-* `git install`
 
-Je kan NPM en NODE.js sneller installeren door NVM te installeren hiervoor heb je de volgende code nodig:
-* `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash` 
+-   `node install`
+-   `git install`
 
-of je kan kijken of je de programmas al in je computer hebt staan door in de terminal te typen:
-* `node --version`
-* `npm --version`
-* `git --version`
+    of je kan kijken of je de programma's al in je computer hebt staan door in de terminal te typen:
 
+-   `node --version`
+-   `git --version`
 
 ## :hammer: App Installatie
-Clone mijn repo:
-* `git clone https://github.com/deinca/block-tech-21`
 
-Installeer de volgende dependencies:
-Express
-* `npm express install` dit module van NODE.js is om de HTTP server te kunnen runnnen.
+### Clone mijn repo:
 
-* `npm install pug` dit is de template engine die ik gebruik om HTML paginas aan te maken.
+-   `git clone https://github.com/deinca/block-tech-21`
 
-* `npm install slug` dit npm zet je URL op een veilig manier in string om.
+### Installeer npm :
 
-* `npm install body-parser` dit npm heb je nodig om data te kunnen opvragen via express.
+-   `npm install`
 
-* `npm install multer` dit npm maakt het mogelijk dat je files(en meer) kan uploaden via een client formulieren.
+### Enviroment veriabelen:
 
-* `npm install dotenv` dit heb je nodig om onafhankelijke variabelen te kunnen gebruiken uit de `.env` bestand. In deze bestand zet ik mijn mongoDB wachtwoord en username bijvoorbeeld.
+Binnen deze repo zul je gebruik maken van een mongoDB account hiervoor heb je een `.env` document nodig met de volgende variabel:
 
-* `npm i mongodb@3.6.3 ` hiermee installeren we het mongoDB omgeving programma zodat het later mogelijk is om data ui de database te roepen.
+`DB_URL=mongodb+srv://<link>` Dit zorgt ervoor dat de applicatie verbonden wordt met je mongodb database.
+
+### Start de app met:
+
+-   `npm index.js`
+
+---
+
+#### Of voor beginners
 
 Essentieel om te installeren in de devdependencies:
 dit zorgt ervoor dat je bewerkingen automatisch bijgewerkt worden. Dus je hoeft niet de applicatie niet steeds te herstarten.
-* `npm nodemon install`
 
-Als je al de bovenstaande heb gedaan kan je de applicatie gebruiken door in de terminal het volgende uit te voeren:
-* `nodemon index.js` 
+-   `npm nodemon install`
 
-### :books: Documentatie
-Raadpleeg mijn documentatie als je ergens vast zit of benieuwd bent naar mijn proces
+##### App starten
 
-* [Project Wiki](https://github.com/deinca/block-tech-21/wiki)
+Als je al de bovenstaande hebt gedaan kun je de applicatie gebruiken door in de terminal het volgende uit te voeren:
 
-## License 
+-   `nodemon`
+
+### :books: Proces documentatie
+
+Raadpleeg mijn documentatie als je benieuwd bent naar het proces van deze applicatie
+
+-   [Project Wiki](https://github.com/deinca/block-tech-21/wiki)
+
+## License
+
 [MIT license](https://github.com/deinca/block-tech-21/blob/main/LICENSE)
