@@ -2,7 +2,6 @@ const express = require("express");
 const pug = require("pug");
 const multer = require("multer");
 const mongoose = require("mongoose");
-
 const dotenv = require("dotenv").config();
 
 //Hieronder roep de profile routes
@@ -27,8 +26,7 @@ app.set("view engine", "pug");
 const url = process.env.DB_URL;
 
 // Conecting Database
-mongoose
-	.connect(url, {
+mongoose.connect(url, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,

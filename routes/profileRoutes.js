@@ -2,11 +2,10 @@ const express = require("express");
 const router = express.Router();
 //Hieronder roep ik mijn profile schema aan van de models folder
 const UserConstructor = require("../models/userSchema");
-
 const multer = require("multer");
 
 //Hieronder wordt de storage gedefineerd en hoe de naam moet worden gegenereerd
-let storage = multer.diskStorage({
+const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, "./static/uploads/");
 	},
@@ -16,7 +15,7 @@ let storage = multer.diskStorage({
 });
 
 // Met deze variable kan multer gebruiken om de geuploade bestanden een bepaalde naam moet krijgen.
-let upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 //POST = hieronder zeg ik dat objecten gemaakt kunnen worden als er bepaalde dat wordt verstuur vanuit de client-side
 router.post("/profile", upload.single("filename"), (req, res) => {
@@ -32,8 +31,7 @@ router.post("/profile", upload.single("filename"), (req, res) => {
 	console.log(newGamer);
 
 	//Nadat de data is opgeslagen in een nieuwe variabel zeg ik dat opgeslagen moet worden in de database
-	newGamer
-		.save()
+	newGamer.save()
 		.then(() => {
 			//Na het opslaan geven we een redirect aan zodat we de net geuploade data weergegven wordt op de profile pagina met een ID query
 			res.redirect(`/profile/${newGamer._id}`);
