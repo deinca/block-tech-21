@@ -39,8 +39,8 @@ router.post("/profile", upload.single("filename"), (req, res) => {
 			//Hiermee weet ik zeker dat de data is geupload en dat de functie goed uit wordt gevoerd
 			console.log("A new user object is uploaded (^.^)!");
 		})
-		.catch((err) => {
-			console.log(err);
+		.catch((error) => {
+			console.log(error);
 		});
 });
 
@@ -59,14 +59,13 @@ router.get("/profile/:id", (req, res) => {
 				favChar: newGamer.gamerFavChar,
 				uploaded: newGamer.uploaded,
 				idGamer: newGamer._id,
-				reqDelete: "post",
 				formAction: "/profile/" + newGamer._id,
-				reqMethod: "post",
+				reqMethod: "post"
 			});
 			// console.log(newGamer.gamerNickName) // mocht er iets fouts gaan dan kunnen we kijken als er echt data wordt opgehaald
 		})
-		.catch((err) => {
-			console.log(err);
+		.catch((error) => {
+			console.log(error);
 		});
 	// console.log(id) //
 });
@@ -86,8 +85,8 @@ router.post("/profile/:id", upload.single("filename"), (req, res) => {
 		},
 	})
 		.then((result) => {
-			console.log(`id:${id} is updated`);
 			res.redirect(`/profile/${id}`);
+			console.log(`id:${id} is updated`);
 		})
 		.catch((error) => {
 			console.log(`error ocured on update id..${error}`);
@@ -100,7 +99,7 @@ router.post("/delete/:id", (req, res) => {
 	let id = req.params.id;
 	UserConstructor.findByIdAndDelete(id)
 		.then((result) => {
-			res.render("delete", { paginaTitel: "Delete pagina" });
+			res.render("delete.pug", { paginaTitel: "Delete pagina" });
 		})
 		.catch((error) => {
 			console.log(`error ocured on delete id..${error}`);

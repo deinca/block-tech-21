@@ -4,10 +4,10 @@ const multer = require("multer");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-//Hieronder roep de profile routes
+// Hieronder roep de profile routes
 const profileRoutes = require("./routes/profileRoutes");
 
-//Hieronder roep ik mijn profile schema aan vande models folder
+// Hieronder roep ik mijn profile schema aan vande models folder
 const UserConstructor = require("./models/userSchema");
 
 // In dit const variabel wordt de express framework opgeroepen en gemaakt als een module
@@ -33,7 +33,7 @@ mongoose.connect(url, {
 	})
 	// We gebruiken de promise method om erros of berichten te loggen
 	.then((result) => console.log("Mongo-Database is connected (^.^)!"))
-	.catch((err) => console.log(err));
+	.catch((error) => console.log(error));
 
 //Hieronder maakt ik een request functie aan waar de welkom-pagina wordt gerenderd
 app.get("/", (req, res) => {
@@ -51,7 +51,6 @@ app.get("/profile", (req, res) => {
 		paginaTitel: "Profiel pagina",
 		formAction: "/profile",
 		reqMethod: "post",
-		reqDelete: "delete",
 	});
 });
 
@@ -67,13 +66,13 @@ app.get("/home", (req, res) => {
 	UserConstructor.find()
 		.then((result) => {
 			// res.send(result);
-			res.render("home", {
+			res.render("home.pug", {
 				paginaTitel: "Home pagina",
 				usersData: result,
 			});
 		})
-		.catch((err) => {
-			console.log(err);
+		.catch((error) => {
+			console.log(error);
 		});
 });
 
