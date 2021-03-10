@@ -97,6 +97,7 @@ router.post("/profile/:id", upload.single("filename"), (req, res) => {
 // Zo kunnen mensen die niet het CSS of bepaalde dunctionaliteit in de Cleint JS alsnog gebruikt maken van mijn applicatie.
 router.post("/delete/:id", (req, res) => {
 	let id = req.params.id;
+	
 	UserConstructor.findByIdAndDelete(id)
 		.then((result) => {
 			res.render("delete.pug", { paginaTitel: "Delete pagina" });
