@@ -213,8 +213,9 @@ input, select {
 }
 
 input:focus, select:focus {
-    outline: outset #ffffff;
-    transition: 0.2s;
+    outline: solid #140300;
+    outline-width: thick;
+	transition: 0.2s;
 }
 
 /* Progressive Enhancement */
