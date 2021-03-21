@@ -19,8 +19,6 @@ inputGame.addEventListener("change", selectCheck, false);
 inputMainChar.addEventListener("input", checkChar, false);
 
 
-
-
 // functions
 function upImg() {
 
@@ -58,7 +56,6 @@ function deleteImg() {
     } 
     
 };
-
 
 function check(){
 
@@ -140,7 +137,6 @@ function goodCheck(){
 
 function checkAll(){
 
-
     if(document.getElementsByClassName('border-green').length < 5){  
         save.classList.remove('show');   
         save.classList.add('hide');
@@ -157,8 +153,6 @@ function checkAll(){
             imgTag.classList.add("border-green");
             inputImg.classList.add("border-green");
         };
-
-
 
         // Set input as required
         inputImg.required = "required";
