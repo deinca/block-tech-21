@@ -10,19 +10,23 @@ html
                     h2(class="content-center")=infoTitel
 
                     section(class="prfl-u-box content-center")  
-                        p Jouw profiel afbeelding is: 
-                            img(src=userAva) 
-                        p Jouw iCu naam is:  
-                            span=nameGamer
-                        p Jouw Favoriete game is: 
-                            span=favGame
-                        p Jouw Favoriete Character is: 
-                            span=favChar
-                        p
-                        - let btnAct = '/delete/' + idGamer
-                        form(id="profile-form" action=btnAct method=reqMethod enctype="multipart/form-data")
-                            section     
-                                button(type="submit" class="button") Verwijder gegevens
+                        
+                        section
+                            p Jouw profiel afbeelding is: 
+                                img(src=userAva) 
+
+                        section
+                                p Jouw iCu naam is:  
+                                    span=nameGamer
+                                p Jouw Favoriete game is: 
+                                    span=favGame
+                                p Jouw Favoriete Character is: 
+                                    span=favChar    
+                        section
+                                - let btnAct = '/delete/' + idGamer
+                                form(id="profile-form" action=btnAct method=reqMethod enctype="multipart/form-data")
+                                    section(class="content-center")      
+                                        button(type="submit" class="button purple-bg") Verwijder gegevens
 
                 else
                 
@@ -33,8 +37,11 @@ html
                 h2 Profiel gegevens bewerken
                 form(id="profile-form" action=formAction method=reqMethod enctype="multipart/form-data")
                     h3 Stel een profiel foto in:
-                    p 
+                    
+                    p
+                        
                         label(for="image") Profiel foto uploaden:  
+                            img(src="/static/images/def-gamer.png" id="avatarPreview" class="ava-prvu" alt="Avatar preview") 
                             input(id="image" type="file" name="filename"  accept="image/*" required)
                     
                     h3 Stel je profielnaam in:
@@ -45,8 +52,8 @@ html
                     h3 Stel je favoriete game in:
                     p 
                         label(for="games") Kies uit: 
-                            select(id="games" name="game")
-                                option(value="false" selected) Voorbeeld Game... 
+                            select(id="games" name="game" required)
+                                option(value="" selected) Voorbeeld Game... 
                                 option() Apex
                                 option() Tekken
                                 option() COD Warzone
@@ -59,7 +66,9 @@ html
                             input(id="favmain" type="text" name="character" placeholder="Voorbeeld Character") 
                     section 
                         p
-                            button(type="submit" class="button") Opslaan
+                            button(type="submit" class="button massage" id="extraCheck") Opslaan
+                            span(id="massage" class="hide")
 
 
     include includes/footer.pug
+    script(src='/static/public/functions.js')

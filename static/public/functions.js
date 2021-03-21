@@ -1,0 +1,175 @@
+//iputs
+const inputImg = document.getElementById('image');
+const inputName = document.getElementById('name');
+const inputGame = document.getElementById('games');
+const inputMainChar = document.getElementById('favmain');
+
+//Elments
+const imgTag = document.getElementById("avatarPreview");
+
+//Event lisneters 
+inputImg.addEventListener("change", upImg, false);
+
+inputImg.addEventListener("click", deleteImg, false);
+
+inputName.addEventListener("input", check, false);
+
+inputGame.addEventListener("change", selectCheck, false);
+
+inputMainChar.addEventListener("input", checkChar, false);
+
+
+
+
+// functions
+function upImg() {
+
+
+    imgTag.src = URL.createObjectURL(event.target.files[0]);    
+    imgTag.onload = function checkImg() {
+        // goodCheck()
+        URL.revokeObjectURL(imgTag.src) // free memory 
+        if(imgTag.src === 'http://localhost:2021/static/images/def-gamer.png'){
+            imgTag.classList.add("border-red");
+            imgTag.classList.remove("border-green");
+            inputImg.classList.add("border-red");
+            goodCheck()
+            // save.classList.add('hide'); 
+        } else{
+            imgTag.classList.remove("border-red");
+            imgTag.classList.add("border-green");
+            inputImg.classList.remove("border-red");
+            inputImg.classList.add("border-green");
+            goodCheck()
+            // save.classList.add('hide'); 
+    }
+}
+};
+
+function deleteImg() {
+    imgTag.classList.remove("border-green");
+    imgTag.classList.add("border-red");
+    imgTag.setAttribute("src", "/static/images/def-gamer.png");
+
+    if(imgTag.src === 'http://localhost:2021/static/images/def-gamer.png'){
+        imgTag.classList.remove("border-green");
+        imgTag.classList.add("border-red");
+        inputImg.classList.add("border-red");
+    } 
+    
+};
+
+
+function check(){
+
+
+    if(inputName.value.length > 4){
+        inputName.classList.remove('border-red');
+        inputName.classList.add('border-green');
+        goodCheck()
+        
+    } else {
+        inputName.classList.remove('border-green');
+        inputName.classList.add('border-red');
+        goodCheck()
+        save.classList.add('hide'); 
+    }
+
+}
+
+function selectCheck(){
+    if(inputGame.value == ''){
+        inputGame.classList.add('border-red');
+        inputGame.classList.remove('border-green');
+        inputGame.required = "required";
+        goodCheck()
+
+
+    }else{
+        inputGame.classList.add('border-green')
+        inputGame.classList.remove('border-red');
+        goodCheck()
+        save.classList.add('hide'); 
+    }
+};
+
+
+function checkChar(){
+
+
+    if(inputMainChar.value.length > 2){
+        inputMainChar.classList.remove('border-red');
+        inputMainChar.classList.add('border-green');
+        goodCheck()
+        
+    } else {
+        inputMainChar.classList.remove('border-green');
+        inputMainChar.classList.add('border-red');
+        goodCheck()
+
+    }
+};
+
+
+const save = document.getElementById('extraCheck');
+// const save = document.getElementById('extraCheck');
+
+    save.addEventListener('click', checkAll, false);
+
+    
+function goodCheck(){
+    if(document.getElementsByClassName('border-green').length == 5){
+        save.classList.remove('no-click');
+        save.classList.remove('purple-bg');
+        save.classList.add('show');
+
+        let txt = "Allee velden zijn ingevuld dankjewel (^.^)!";
+        let paragraph = document.getElementById("massage");
+        paragraph.innerHTML = "<span class='green'>" + txt + "</span>";
+
+    } else{
+        checkAll()
+    }
+    if(document.getElementsByClassName('border-green').length < 5){
+        save.classList.add('hide');   
+    }
+    
+};
+
+
+
+function checkAll(){
+
+
+    if(document.getElementsByClassName('border-green').length < 5){  
+        save.classList.remove('show');   
+        save.classList.add('hide');
+        save.classList.add('purple-bg');
+        save.classList.add('message');
+
+        //Check the if the input are filled
+        if(imgTag.src === 'http://localhost:2021/static/images/def-gamer.png'){
+            imgTag.classList.remove("border-green");
+            imgTag.classList.add("border-red");
+            inputImg.classList.add("border-red");
+        } else{
+            imgTag.classList.remove("border-red");
+            imgTag.classList.add("border-green");
+            inputImg.classList.add("border-green");
+        };
+
+
+
+        // Set input as required
+        inputImg.required = "required";
+        inputName.required = "required";
+        inputGame.required = "required";
+        inputMainChar.required = "required";
+
+        let txt = "Maak alle velden groen s.v.p. (^.^)!";
+        let paragraph = document.getElementById("massage");
+        paragraph.classList.add('show')
+        paragraph.innerHTML = "<span class='yellow'>" + txt + "</span>";
+
+    }
+}

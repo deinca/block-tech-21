@@ -29,6 +29,7 @@ body::after {
 /* /PARAGRAFS/ */
 p {
 	margin-bottom: 1rem;
+	font-size: 1.2rem;
 }
 
 /* /HEADINGS/ */
@@ -126,13 +127,18 @@ footer {
 	background-color: #1f1fff;
 	border: none;
 	border-radius: 0.5rem;
-	color: #adf218;
+	color: #ffffff;
 	padding: 1.2rem;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 1rem;
 	cursor: pointer;
+}
+
+.purple-bg {
+    background: #2b0c2f;
+    color: #ff3b52;
 }
 
 /** //PAGES// **/
@@ -155,10 +161,12 @@ section.profile-box {
 /* /PROFILE PAGE/ */
 article.form-box {
 	background: #4c034c;
-	padding: 1.5rem;
-	border-radius: 1rem;
-	margin: 2rem 0rem;
-	box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
+    padding: 0 10% 2.5rem 10%;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
+    margin: 2% 10% 5% 10%;
+    display: flow-root;
+	
 }
 
 section.prfl-u-box {
@@ -166,7 +174,80 @@ section.prfl-u-box {
 	padding: 1.5rem;
 	border-radius: 1rem;
 	box-shadow: 0.1rem 0.5rem 1rem 0.1rem;
+	display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+	align-items: baseline;
 }
+
+.prfl-u-box section p {
+    display: flex;
+    flex-flow: column;
+}
+
+.prfl-u-box section p span {
+    color: #adf218;
+    font-size: 1.4rem;
+}
+
+.ava-prvu {
+    display: flex;
+    padding: 0% 35%;
+    background: #2b0c2f;
+	border-bottom: 0;
+}
+
+/* /FORM/ */
+form p label {
+    display: flex;
+    flex-flow: column;
+}
+
+input, select {
+    padding: 1em;
+    border: solid 3px #006466;
+    color: #72efdd;
+    background: #2b0c2f;
+	font-size: 0.95rem;
+	transition: 0.2s;
+}
+
+input:focus, select:focus {
+    outline: outset #ffffff;
+    transition: 0.2s;
+}
+
+/* Progressive Enhancement */
+.border-green{
+	border: solid #adf218;
+	color: #adf218;
+	transition: 0.3s;
+    
+}
+
+.border-red {
+    border: solid #ff3b52;
+    color: #ff3b52;
+	transition: 0.3s;
+}
+
+
+.yellow {
+	color: #fcff3b;
+	text-transform: uppercase;
+}
+.green{
+	color: #adf218;
+	text-transform: uppercase;
+}
+
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}
+
 
 /* /404 PAGE/ */
 
