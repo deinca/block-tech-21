@@ -30,19 +30,17 @@ function upImg() {
     imgTag.onload = function checkImg() {
         // goodCheck()
         URL.revokeObjectURL(imgTag.src) // free memory 
-        if(imgTag.src.includes === 'def-gamer.png'){
+        if(imgTag.src.includes('def-gamer.png')){
             imgTag.classList.add("border-red");
             imgTag.classList.remove("border-green");
             inputImg.classList.add("border-red");
             goodCheck()
-            // save.classList.add('hide'); 
         } else{
             imgTag.classList.remove("border-red");
             imgTag.classList.add("border-green");
             inputImg.classList.remove("border-red");
             inputImg.classList.add("border-green");
             goodCheck()
-            // save.classList.add('hide'); 
     }
 }
 };
@@ -52,7 +50,7 @@ function deleteImg() {
     imgTag.classList.add("border-red");
     imgTag.setAttribute("src", "/static/images/def-gamer.png");
 
-    if(imgTag.src === 'http://localhost:2021/static/images/def-gamer.png'){
+    if(imgTag.src.includes('def-gamer.png')){
         imgTag.classList.remove("border-green");
         imgTag.classList.add("border-red");
         inputImg.classList.add("border-red");
