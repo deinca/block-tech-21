@@ -31,8 +31,9 @@ function upImg() {
         // goodCheck()
         URL.revokeObjectURL(imgTag.src) // free memory 
         if(imgTag.src.includes('def-gamer.png')){
-            imgTag.classList.add("border-red");
             imgTag.classList.remove("border-green");
+            imgTag.classList.add("border-red");
+            inputImg.classList.remove("border-green");
             inputImg.classList.add("border-red");
             goodCheck()
         } else{
@@ -53,6 +54,7 @@ function deleteImg() {
     if(imgTag.src.includes('def-gamer.png')){
         imgTag.classList.remove("border-green");
         imgTag.classList.add("border-red");
+        inputImg.classList.remove("border-green");
         inputImg.classList.add("border-red");
     } 
     
