@@ -24,7 +24,13 @@ inputMainChar.addEventListener("input", checkChar, false);
 
 // functions
 function upImg() {
-
+    if(imgTag.src.includes('def-gamer.png')){
+        imgTag.classList.remove("border-green");
+        imgTag.classList.add("border-red");
+        inputImg.classList.remove("border-green");
+        inputImg.classList.add("border-red");
+        goodCheck()
+    }
 
     imgTag.src = URL.createObjectURL(event.target.files[0]);    
     imgTag.onload = function checkImg() {
