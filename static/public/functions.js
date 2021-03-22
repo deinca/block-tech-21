@@ -57,6 +57,11 @@ function deleteImg() {
         inputImg.classList.remove("border-green");
         inputImg.classList.add("border-red");
     } 
+    if(inputImg.accept.includes('image/*')){
+
+    } else{
+        inputImg.setAttribute("accept", "image/*");
+    }
     
 };
 

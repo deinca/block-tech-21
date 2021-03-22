@@ -141,6 +141,35 @@ footer {
     color: #ff3b52;
 }
 
+input[type=file]{
+	display: flex;
+	justify-content: center;
+}
+input[type=file]::file-selector-button {
+	border-radius: 0.5rem;
+	border:none;
+	color: blanchedalmond;
+    background:#1f1fff;
+    cursor: pointer;
+	padding: 0.8rem;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	transition: 0.5s;
+}
+
+input[type=file]::-webkit-file-upload-button:hover, .button:hover{
+	transition: 0.5s;
+	background: #07b39b;
+
+}
+
+
+input:hover, select:hover {
+    background-color: #1a1a3e;
+}
+
+
 /** //PAGES// **/
 
 /* /HOME GAMERS PAGE/ */
