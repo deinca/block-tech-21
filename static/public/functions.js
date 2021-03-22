@@ -24,13 +24,7 @@ inputMainChar.addEventListener("input", checkChar, false);
 
 // functions
 function upImg() {
-    if(imgTag.src.includes('def-gamer.png')){
-        imgTag.classList.remove("border-green");
-        imgTag.classList.add("border-red");
-        inputImg.classList.remove("border-green");
-        inputImg.classList.add("border-red");
-        goodCheck()
-    }
+
 
     imgTag.src = URL.createObjectURL(event.target.files[0]);    
     imgTag.onload = function checkImg() {
@@ -153,7 +147,7 @@ function checkAll(){
         save.classList.add('message');
 
         //Check the if the input are filled
-        if(imgTag.src === 'http://localhost:2021/static/images/def-gamer.png'){
+        if(imgTag.src.includes('def-gamer.png')){
             imgTag.classList.remove("border-green");
             imgTag.classList.add("border-red");
             inputImg.classList.add("border-red");
