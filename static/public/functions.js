@@ -1,3 +1,6 @@
+// Hoisted functions
+makeImgtag();
+
 //iputs
 const inputImg = document.getElementById('image');
 const inputName = document.getElementById('name');
@@ -94,7 +97,7 @@ function selectCheck(){
 function checkChar(){
 
 
-    if(inputMainChar.value.length > 2){
+    if(inputMainChar.value.length > 0){
         inputMainChar.classList.remove('border-red');
         inputMainChar.classList.add('border-green');
         goodCheck()
@@ -120,7 +123,7 @@ function goodCheck(){
         save.classList.remove('purple-bg');
         save.classList.add('show');
 
-        let txt = "Allee velden zijn ingevuld dankjewel (^.^)!";
+        let txt = "Alle velden zijn ingevuld dankjewel (^.^)!";
         let paragraph = document.getElementById("massage");
         paragraph.innerHTML = "<span class='green'>" + txt + "</span>";
 
@@ -160,10 +163,15 @@ function checkAll(){
         inputGame.required = "required";
         inputMainChar.required = "required";
 
-        let txt = "Maak alle velden groen s.v.p. (^.^)!";
+        let txt = "Maak alle velden groen s.v.p. (*.*)!";
         let paragraph = document.getElementById("massage");
         paragraph.classList.add('show')
         paragraph.innerHTML = "<span class='yellow'>" + txt + "</span>";
 
     }
+}
+
+function makeImgtag(){
+    const spanImage = document.getElementById("imageSpace");
+    spanImage.innerHTML = '<img class="ava-prvu" src="/static/images/def-gamer.png" id="avatarPreview" alt="Avatar preview">';
 }

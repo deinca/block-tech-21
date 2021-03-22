@@ -192,9 +192,13 @@ section.prfl-u-box {
 
 .ava-prvu {
     display: flex;
-    padding: 0% 35%;
-    background: #2b0c2f;
 	border-bottom: 0;
+}
+
+span#imageSpace {
+    display: flex;
+    justify-content: center;
+	background: #2b0c2f;
 }
 
 /* /FORM/ */
