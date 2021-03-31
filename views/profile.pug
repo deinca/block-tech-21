@@ -1,5 +1,5 @@
 doctype html
-html
+html(lang="nl")
     include includes/head.pug
     
     body
@@ -64,10 +64,9 @@ html
                     p
                         label(for="favmain") Vul de naam van je favorite character:  
                             input(id="favmain" type="text" name="character" placeholder="Voorbeeld Character") 
-                    section 
-                        p
-                            button(type="submit" class="button massage" id="extraCheck") Opslaan
-                            span(id="massage" class="hide")
+                    p
+                        button(type="submit" class="button massage" id="extraCheck") Opslaan
+                        span(id="massage" class="hide")
 
 
     include includes/footer.pug
