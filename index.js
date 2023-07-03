@@ -30,16 +30,7 @@ app.set("view engine", "pug");
 // const port = process.env.PORT || "0.0.0.0/0";
 const PORT = process.env.PORT || 2021;
 
-// // Conecting Database
-// mongoose.connect(url, {
-// 		useNewUrlParser: true,
-// 		useUnifiedTopology: true,
-// 		useFindAndModify: false,
-// 	})
-// 	// We gebruiken de promise method om erros of berichten te loggen
-// 	.then((result) => console.log("Mongo-Database is connected (^.^)!"))
-// 	.catch((error) => console.log(error));
-
+// Conecting Database
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DB_URL, {
@@ -103,13 +94,7 @@ app.get("*", (req, res) => {
   });
 });
 
-// // Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren.
-// app.listen(port, host, () => {
-//   // we maken een locale server aan
-//   console.log(`The app is listening to port ${port} or ${host}`);
-//   // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
-// });
-
+// Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren.
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log("listening for requests");
