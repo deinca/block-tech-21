@@ -23,6 +23,7 @@ app.use("/static", express.static("static"));
 app.set("views", "./views");
 app.set("view engine", "pug");
 
+// Hier zit de URI API van mongodb
 const url = process.env.DB_URL;
 
 // Conecting Database
