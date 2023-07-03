@@ -86,7 +86,7 @@ app.get("*", (req, res) => {
 });
 
 //Port listening setting
-const port = process.env.PORT || "0.0.0.0";
+const port = process.env.PORT || "0.0.0.0/0";
 const host = process.env.HOST || 2021;
 
 // Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren.
