@@ -42,7 +42,7 @@ const PORT = process.env.PORT || 2021;
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(url, {
+    await mongoose.connect(process.env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
