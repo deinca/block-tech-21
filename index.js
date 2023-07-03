@@ -24,35 +24,53 @@ app.set("views", "./views");
 app.set("view engine", "pug");
 
 // Hier zit de URI API van mongodb
-const url = process.env.DB_URL;
+// const url = process.env.DB_URL;
 
-// Conecting Database
-mongoose.connect(url, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-	})
-	// We gebruiken de promise method om erros of berichten te loggen
-	.then((result) => console.log("Mongo-Database is connected (^.^)!"))
-	.catch((error) => console.log(error));
+//Port listening setting
+// const port = process.env.PORT || "0.0.0.0/0";
+const PORT = process.env.PORT || 2021;
+
+// // Conecting Database
+// mongoose.connect(url, {
+// 		useNewUrlParser: true,
+// 		useUnifiedTopology: true,
+// 		useFindAndModify: false,
+// 	})
+// 	// We gebruiken de promise method om erros of berichten te loggen
+// 	.then((result) => console.log("Mongo-Database is connected (^.^)!"))
+// 	.catch((error) => console.log(error));
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    });
+    console.log("Mongo-Database is connected (^.^)!");
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
 
 //Hieronder maakt ik een request functie aan waar de welkom-pagina wordt gerenderd
 app.get("/", (req, res) => {
-	res.render("welkom.pug", { paginaTitel: "Welkom in de iCu webapp" });
+  res.render("welkom.pug", { paginaTitel: "Welkom in de iCu webapp" });
 });
 
 //Hieronder maakt ik een request functie aan waar de login-pagina wordt gerenderd
 app.get("/matches", (req, res) => {
-	res.render("matches.pug", { paginaTitel: "Matches pagina" });
+  res.render("matches.pug", { paginaTitel: "Matches pagina" });
 });
 
 //Hieronder maakt ik een request functie aan waar de profile wordt gerenderd
 app.get("/profile", (req, res) => {
-	res.render("profile.pug", {
-		paginaTitel: "Profiel pagina",
-		formAction: "/profile",
-		reqMethod: "post",
-	});
+  res.render("profile.pug", {
+    paginaTitel: "Profiel pagina",
+    formAction: "/profile",
+    reqMethod: "post",
+  });
 });
 
 //Hier gebruik ik de profileRoutes die in de folder routes staat.
@@ -64,34 +82,36 @@ app.use(profileRoutes);
 // en weergegeven moeten worden in de client door de PUG egine. Hiervoor heb ik de (result) call-back gebruikt en in een variabel gezet met de naam usersData.
 // Zo kan de PUG enige profiel kaarten aanmaken.
 app.get("/home", (req, res) => {
-	UserConstructor.find()
-		.then((result) => {
-			// res.send(result);
-			res.render("home.pug", {
-				paginaTitel: "Home pagina",
-				usersData: result,
-			});
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+  UserConstructor.find()
+    .then((result) => {
+      // res.send(result);
+      res.render("home.pug", {
+        paginaTitel: "Home pagina",
+        usersData: result,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 // Hier geef ik aan dat als er een willekeurige path wordt aangevraagd door de client-side en deze bestaat niet dan krijg je een error 404 pagina.
 app.get("*", (req, res) => {
-	res.render("404", {
-		paginaTitel: "404 pagina niet gevonden",
-		message: "oeps deze pagina bestaat helaas niet",
-	});
+  res.render("404", {
+    paginaTitel: "404 pagina niet gevonden",
+    message: "oeps deze pagina bestaat helaas niet",
+  });
 });
 
-//Port listening setting
-const port = process.env.PORT || "0.0.0.0/0";
-const host = process.env.HOST || 2021;
+// // Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren.
+// app.listen(port, host, () => {
+//   // we maken een locale server aan
+//   console.log(`The app is listening to port ${port} or ${host}`);
+//   // en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
+// });
 
-// Hieronder zeg ik tegen (express) mijn server naar welke port hij moet luisteren.
-app.listen(port, host, () => {
-	// we maken een locale server aan
-	console.log(`The app is listening to port ${port} or ${host}`);
-	// en de conlose moet de bonvenstaande uitprinten als hij een server port open staat.
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("listening for requests");
+  });
 });
